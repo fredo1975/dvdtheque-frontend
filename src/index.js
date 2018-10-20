@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Dvdtheque from './Dvdtheque';
 import * as serviceWorker from './serviceWorker';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(<Dvdtheque />, document.getElementById('root'));
 

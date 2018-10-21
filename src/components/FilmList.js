@@ -5,7 +5,7 @@ function FilmList(props) {
   console.log(props.films);
   //const listFilm = props.films.map((film)=> <Film key={film.id} titre={film.titre}/>);
   return (
-    <div className="container">
+    <div>
     <h3>Film liste</h3>
     Taille : {props.films.length}
     <br/>

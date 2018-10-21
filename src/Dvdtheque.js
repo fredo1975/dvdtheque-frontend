@@ -26,20 +26,21 @@ class Dvdtheque extends Component {
     }
     )
   }
-  
+
   render() {
     const { error, films } = this.state;
+
     if (error) {
       return <div>Error: {error.message}</div>;
     }else{
       return(
-      <div className="Dvdtheque">
-        <Header/>
-        <div className="container-fluid text-center">
-        <FilmList films={Array.from(films)} />
+        <div >
+          <Header/>
+          <div className="container-fluid text-center">
+          <FilmList films={Array.from(films)} />
+          </div>
         </div>
-      </div>
-    )
+      )
     }
   }
 }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import FilmList from "./components/FilmList";
-import Header from "./components/Header";
-
+import FilmList from "./FilmList";
+import Header from "./Header";
+import { Switch, Route, Link } from 'react-router-dom'; // import the react-router-dom components
+import { Home, AddFilm, UpdatePersonne, AddPersonne } from '../pages' // import our pages
 
 class Dvdtheque extends Component {
   constructor(){
@@ -27,15 +28,26 @@ class Dvdtheque extends Component {
     )
   }
 
+
   render() {
     const { error, films } = this.state;
-
+    const Main = () => (
+      <main>
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/AddFilm' component={AddFilm}/>
+          <Route exact path='/UpdatePersonne' component={UpdatePersonne} />
+          <Route exact path='/AddPersonne' component={AddPersonne} />
+        </Switch>
+      </main>
+  )
     if (error) {
       return <div>Error: {error.message}</div>;
     }else{
       return(
         <div >
           <Header/>
+          - {Main} -
           <div className="container-fluid text-center">
           <FilmList films={Array.from(films)} />
           </div>

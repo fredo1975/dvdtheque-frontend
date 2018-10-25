@@ -16,13 +16,14 @@ class Main extends Component {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(result => result.json()).then((result)=> {
+    }
+    ).then(result => result.json()).then((result)=> {
           this.setState({films:result});
     }
     ,
-    (error)=>{
-      this.setstate({error});
-    }
+      (error)=>{
+        this.setstate({error});
+      }
     )
   }
 

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {AddFilm, UpdatePersonne, AddPersonne} from '../pages' // import our pages
-import { Switch, Route } from 'react-router-dom'
 import FilmList from "./FilmList";
 
 class Home extends Component {
@@ -27,12 +25,15 @@ class Home extends Component {
 
   render() {
     const { error, films } = this.state;
-    return(
-      <div className="container-fluid text-center">
-        <FilmList films={Array.from(films)} />
-      </div>
-    )
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    }else{
+      return(
+        <div className="container-fluid text-center">
+          <FilmList films={Array.from(films)} />
+        </div>
+      )
+    }
   }
 }
-
 export default Home

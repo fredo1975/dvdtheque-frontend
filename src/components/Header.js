@@ -67,7 +67,7 @@ class Header extends Component {
       </nav>
         </header>
       )*/
-      
+
       return(
         <Header/>
       )

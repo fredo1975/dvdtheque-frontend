@@ -1,5 +1,7 @@
 import React from "react";
 import FilmRow from "./FilmRow";
+import EditFilm from "./EditFilm";
+import { Switch, Route } from 'react-router-dom'
 
 function FilmList(props) {
   console.log(props.films);
@@ -23,7 +25,7 @@ function FilmList(props) {
       {
         props.films.map((film)=> {
           return (
-            <FilmRow key={film.id} titre={film.titre} realisateur={film.printRealisateur} acteurs={film.printActeurs} annee={film.annee} ripped={film.ripped===true?"oui":"non"}/>
+            <FilmRow key={film.id} id={film.id} titre={film.titre} realisateur={film.printRealisateur} acteurs={film.printActeurs} annee={film.annee} ripped={film.ripped===true?"oui":"non"}/>
           );
         })
       }

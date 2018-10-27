@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Switch, Route, Link } from 'react-router-dom'; // import the react-router-dom components
+import React from 'react';
 
 export const AddFilm = () => (
     <div>

@@ -1,6 +1,4 @@
 import React from "react";
-import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import EditFilm from "./EditFilm";
 import { Link } from 'react-router-dom'
 
 class FilmRow extends React.PureComponent{

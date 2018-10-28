@@ -1,10 +1,8 @@
 import React from "react";
 import FilmRow from "./FilmRow";
-import EditFilm from "./EditFilm";
-import { Switch, Route } from 'react-router-dom'
 
 function FilmList(props) {
-  console.log(props.films);
+  //console.log(props.films);
   //const listFilm = props.films.map((film)=> <Film key={film.id} titre={film.titre}/>);
   return (
     <div>

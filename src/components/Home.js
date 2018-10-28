@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import FilmList from "./FilmList";
 
 class Home extends Component {
-  constructor(){
-    super();
-    this.state = {films:[]};
+  constructor(props){
+    super(props);
+    this.state = {films:[],err:null,isLoaded: false};
   }
 
   componentDidMount(){
@@ -14,23 +14,24 @@ class Home extends Component {
             'Content-Type': 'application/json'
         }
     }).then(result => result.json()).then((result)=> {
-          this.setState({films:result});
-    }
-    ,
+          this.setState({isLoaded: true,films:result});
+    },
     (error)=>{
-      this.setstate({error});
+      this.setstate({isLoaded:true,error});
     }
-    )
+  );
   }
 
   render() {
-    const { error, films } = this.state;
-    if (error) {
-      return <div>Error: {error.message}</div>;
+    const {films,err,isLoaded } = this.state;
+    if (err) {
+      return <div className="container-fluid text-center">Error : {err}</div>;
+    } else if (!isLoaded) {
+      return <div className="container-fluid text-center">Loading...</div>;
     }else{
       return(
         <div className="container-fluid text-center">
-          <FilmList films={Array.from(films)} />
+          <FilmList films={films} />
         </div>
       )
     }

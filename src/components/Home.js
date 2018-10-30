@@ -27,7 +27,7 @@ class Home extends Component {
     if (err) {
       return <div className="container-fluid text-center">Error : {err}</div>;
     } else if (!isLoaded) {
-      return <div className="container-fluid text-center">Loading...</div>;
+      return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
       return(
         <div className="container-fluid text-center">

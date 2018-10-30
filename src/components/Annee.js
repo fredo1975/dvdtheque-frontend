@@ -26,7 +26,7 @@ class Annee extends Component {
     console.log('film_annee='+film_annee);
     return(
       <div className="form-group">
-        <label>{label}
+        <label>{label}</label>
           <select className="form-control" name="film_annee" value={film_annee} onChange={this.handleChange}>
           {
             this.anneeList.map((annee)=>{
@@ -34,7 +34,6 @@ class Annee extends Component {
             })
           }
           </select>
-        </label>
       </div>
     )
   }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Dvd from "./Dvd";
 import Annee from "./Annee";
+import Realisateur from "./Realisateur";
+import {printRealisateur} from '../pages' // import our pages
 
 class EditFilm extends Component {
   constructor(props){
@@ -31,33 +33,30 @@ class EditFilm extends Component {
   render() {
     const isLoaded = this.state.isLoaded;
     if (!isLoaded) {
-      return <div className="container-fluid text-center">Loading...</div>;
+      return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
       const film = this.state.film;
       const dvd = this.state.film.dvd;
+      const realisateur = this.state.film.personnesFilm.realisateur.personne;
       //console.log('this.state.film='+this.state.film.dvd.zone);
       return(
-
-        <div className="container-fluid">
-
+        <div className="container">
         <form id="principal">
-          <div className="row justify-content-md-center">
-
-            <div className="col-md-2 col-md-offset-5 text-center">
+          <div className="row">
+            <div className="col-md-5 offset-md-3">
             <h2>Film Edition</h2>
               <div className="form-group">
-                <label>Titre
-                  <input type="text" id="titre" className="form-control" value={film.titre}/>
-                </label>
+                <label>Titre</label>
+                <input type="text" id="titre" className="form-control" value={film.titre}/>
               </div>
               <div className="form-group">
-                <label>Titre Original
-                  <input type="text" id="titreO" className="form-control" value={film.titreO==null?'':film.titreO}/>
-                </label>
+                <label>Titre Original</label>
+                <input type="text" id="titreO" className="form-control" value={film.titreO==null?'':film.titreO}/>
               </div>
               <Annee film_annee={film.annee} label='Année'/>
               <Dvd dvd={dvd}/>
               <Annee film_annee={dvd.annee} label='Année DVD'/>
+              <Realisateur key={realisateur.id} id={realisateur.id} print={printRealisateur(realisateur.prenom,realisateur.nom)} label='Réalisateur' />
             </div>
           </div>
         </form>

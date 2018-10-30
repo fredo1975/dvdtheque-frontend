@@ -17,3 +17,7 @@ export const AddPersonne = () => (
         <h1>Ajouter une Personne</h1>
     </div>
 )
+
+export const printRealisateur = function(prenom,nom) {
+  return prenom+' '+nom;
+}

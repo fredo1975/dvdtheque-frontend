@@ -18,6 +18,8 @@ export const AddPersonne = () => (
     </div>
 )
 
-export const printRealisateur = function(prenom,nom) {
+export const printPersonne = function(prenom,nom) {
   return prenom+' '+nom;
 }
+
+export const rest_api_url = 'http://192.168.99.100:8083/dvdtheque/';

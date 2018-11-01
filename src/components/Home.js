@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import FilmList from "./FilmList";
+import {rest_api_url} from '../pages' // import our pages
 
 class Home extends Component {
   constructor(props){
     super(props);
-    this.state = {films:[],err:null,isLoaded: false};
+    this.state = {films:[],error:null,isLoaded: false};
   }
 
   componentDidMount(){
-    fetch('http://localhost:8083/dvdtheque/films', {
+    fetch(rest_api_url+'films', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -17,15 +18,15 @@ class Home extends Component {
           this.setState({isLoaded: true,films:result});
     },
     (error)=>{
-      this.setstate({isLoaded:true,error});
+      this.setState({isLoaded:true,error});
     }
   );
   }
 
   render() {
-    const {films,err,isLoaded } = this.state;
-    if (err) {
-      return <div className="container-fluid text-center">Error : {err}</div>;
+    const {films,error,isLoaded } = this.state;
+    if (error) {
+      return <div className="container-fluid text-center"><h3>Error : {error.message} film list</h3></div>;
     } else if (!isLoaded) {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{

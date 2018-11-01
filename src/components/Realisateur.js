@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {printRealisateur} from '../pages' // import our pages
+import {printPersonne,rest_api_url} from '../pages' // import our pages
 
 class Realisateur extends Component {
   constructor(props){
@@ -8,7 +8,7 @@ class Realisateur extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount(){
-    fetch('http://localhost:8083/dvdtheque/realisateurs', {
+    fetch(rest_api_url+'realisateurs', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ class Realisateur extends Component {
           this.setState({isLoaded: true,realisateurs:result});
     },
     (error)=>{
-      this.setstate({err:error,isLoaded: true,});
+      this.setState({error,isLoaded: true,});
       console.log('error='+error);
     }
     )
@@ -32,21 +32,28 @@ class Realisateur extends Component {
     const label = this.state.label;
     const id = this.state.id;
     const real_list = this.state.realisateurs;
-    console.log('print='+print);
-    return(
-      <div className="form-group">
+    const isLoaded = this.state.isLoaded;
+    //console.log('print='+print);
+    if(this.state.error){
+      return <div className="container-fluid text-center"><h3>Error : {this.state.error.message} film</h3></div>;
+    }else if (!isLoaded) {
+      return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
+    }else{
+      return(
         <div className="form-group">
-          <label>Realisateur</label>
-          <select className="form-control" name='id' value={id} onChange={this.handleChange}>
-          {
-            real_list.map((real)=>{
-              return <option key={real.id} value={real.id}>{printRealisateur(real.prenom,real.nom)}</option>
-            })
-          }
-          </select>
+          <div className="form-group">
+            <label>Realisateur</label>
+            <select className="form-control" name='id' value={id} onChange={this.handleChange}>
+            {
+              real_list.map((real)=>{
+                return <option key={real.id} value={real.id}>{printPersonne(real.prenom,real.nom)}</option>
+              })
+            }
+            </select>
+          </div>
         </div>
-      </div>
-    )
+      )
+  }
   }
 }
 

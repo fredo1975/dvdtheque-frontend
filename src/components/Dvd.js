@@ -19,14 +19,14 @@ class Dvd extends Component {
   }
   render() {
     const dvd_zone = this.state.dvd_zone;
-    console.log('dvd_zone='+dvd_zone);
+    //console.log('dvd_zone='+dvd_zone);
     return(
       <div className="form-group">
         <label>Zone DVD</label>
           <select className="form-control" name="dvd_zone" value={dvd_zone} onChange={this.handleChange}>
           {
             this.zoneList.map((zone)=>{
-              return <option value={zone}>{zone}</option>
+              return <option key={zone} value={zone}>{zone}</option>
             })
           }
           </select>

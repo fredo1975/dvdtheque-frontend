@@ -9,6 +9,8 @@ class EditFilm extends Component {
   constructor(props){
     super(props);
     this.state = {film:null,err:null,isLoaded: false};
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
@@ -27,12 +29,18 @@ class EditFilm extends Component {
     )
   }
   handleChange(event) {
-      //this.setState(state => ({film: event.target.value.toString()}));
-      console.log('event.target.value='+event.target.value);
+      let film = Object.assign({}, this.state.film);
+      if(event.target.id=='titre'){
+        film.titre=event.target.value;
+      }else{
+        film.titreO=event.target.value;
+      }
+      this.setState({film});
+      console.log('this.state.film.titre='+this.state.film.titre);
   }
 
   handleSubmit = (event) => {
-      alert('Your favorite flavor is: ' + this.state.film.titre);
+      alert('this.state.film.titre=' + this.state.film.titre);
       event.preventDefault();
   }
 
@@ -54,12 +62,12 @@ class EditFilm extends Component {
             <div className="col-md-5 offset-md-3">
             <h2>Film Edition</h2>
               <div className="form-group">
-                <label for="titre">Titre</label>
-                <input type="text" id="titre" className="form-control" value={film.titre} onChange={this.handleChange}/>
+                <label htmlFor="titre">Titre</label>
+                <input type="text" id="titre" className="form-control" defaultValue={film.titre} onChange={this.handleChange}/>
               </div>
               <div className="form-group">
                 <label>Titre Original</label>
-                <input type="text" id="titreO" className="form-control" value={film.titreO==null?'':film.titreO}/>
+                <input type="text" id="titreO" className="form-control" defaultValue={film.titreO==null?'':film.titreO} onChange={this.handleChange}/>
               </div>
               <Annee film_annee={film.annee} label='Année'/>
               <Dvd dvd={dvd}/>

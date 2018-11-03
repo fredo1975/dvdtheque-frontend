@@ -49,7 +49,6 @@ class Acteurs extends PureComponent {
       this.setState(change);
   }
   render() {
-    const label = this.state.label;
     const acteurs_list = this.state.acteurs;
     const isLoaded = this.state.isLoaded;
     //console.log('print='+print);
@@ -59,7 +58,7 @@ class Acteurs extends PureComponent {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
       return(
-          <select className="custom-select" size="20" multiple value={this.state.selected}>
+          <select className="custom-select" size="20" multiple defaultValue={this.state.selected}>
           {
             acteurs_list.map((acteur)=>{
               return (
@@ -69,7 +68,7 @@ class Acteurs extends PureComponent {
           }
           </select>
       )
-  }
+    }
   }
 }
 

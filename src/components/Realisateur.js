@@ -28,7 +28,6 @@ class Realisateur extends PureComponent {
       this.setState(change);
   }
   render() {
-    const print = this.state.print;
     const label = this.state.label;
     const id = this.state.id;
     const real_list = this.state.realisateurs;

@@ -23,7 +23,7 @@ class Annee extends Component {
   render() {
     const film_annee = this.state.film_annee;
     const label = this.state.label;
-    console.log('film_annee='+film_annee);
+    //console.log('film_annee='+film_annee);
     return(
       <div className="form-group">
         <label>{label}</label>

@@ -31,6 +31,11 @@ class EditFilm extends Component {
       console.log('event.target.value='+event.target.value);
   }
 
+  handleSubmit = (event) => {
+      alert('Your favorite flavor is: ' + this.state.film.titre);
+      event.preventDefault();
+  }
+
   render() {
     const isLoaded = this.state.isLoaded;
     if(this.state.error){
@@ -45,12 +50,12 @@ class EditFilm extends Component {
       //console.log('this.state.film='+this.state.film.dvd.zone);
       return(
         <div className="container">
-        <form id="principal">
+        <form id="principal" onSubmit={this.handleSubmit}>
             <div className="col-md-5 offset-md-3">
             <h2>Film Edition</h2>
               <div className="form-group">
                 <label for="titre">Titre</label>
-                <input type="text" id="titre" className="form-control" value={film.titre}/>
+                <input type="text" id="titre" className="form-control" value={film.titre} onChange={this.handleChange}/>
               </div>
               <div className="form-group">
                 <label>Titre Original</label>
@@ -61,6 +66,7 @@ class EditFilm extends Component {
               <Annee film_annee={dvd.annee} label='Année DVD'/>
               <Realisateur key={realisateur.id} id={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur' />
               <Acteurs acteurs={acteurs} label='Acteurs' />
+              <button type="submit" className="btn btn-primary">Submit</button>
             </div>
         </form>
         </div>

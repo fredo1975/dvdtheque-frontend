@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {printPersonne,rest_api_url} from '../pages' // import our pages
 
-class Realisateur extends Component {
+class Realisateur extends PureComponent {
   constructor(props){
     super(props);
     this.state = {real:'',print:props.print==null?'Non renseigné':props.print,label:props.label,realisateurs:[],id:props.id};
@@ -41,7 +41,6 @@ class Realisateur extends Component {
     }else{
       return(
         <div className="form-group">
-          <div className="form-group">
             <label>Realisateur</label>
             <select className="form-control" name='id' value={id} onChange={this.handleChange}>
             {
@@ -50,7 +49,6 @@ class Realisateur extends Component {
               })
             }
             </select>
-          </div>
         </div>
       )
   }

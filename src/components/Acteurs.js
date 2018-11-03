@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {printPersonne,rest_api_url} from '../pages' // import our pages
 
 
@@ -18,8 +18,7 @@ const isActeurSelected = function(id,selected) {
   return found;
 }
 
-
-class Acteurs extends Component {
+class Acteurs extends PureComponent {
   constructor(props){
     super(props);
     this.state = {
@@ -60,22 +59,15 @@ class Acteurs extends Component {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
       return(
-          <div className="table-wrapper-scroll-y">
-            <label>Acteurs</label>
-            <table className="table table-bordered">
-            {
-              acteurs_list.map((acteur)=>{
-                return (
-                  <tr>
-                  <td>
-                    <input name={acteur.id} type="checkbox" checked={isActeurSelected(acteur.id,this.state.selected)} onChange={this.handleSelect}/> <label>{printPersonne(acteur.prenom,acteur.nom)}</label>
-                    </td>
-                    </tr>
-                )
-              })
-            }
-            </table>
-        </div>
+          <select className="custom-select" size="20" multiple value={this.state.selected}>
+          {
+            acteurs_list.map((acteur)=>{
+              return (
+                <option key={acteur.id} value={acteur.id}>{printPersonne(acteur.prenom,acteur.nom)}</option>
+              )
+            })
+          }
+          </select>
       )
   }
   }

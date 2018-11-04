@@ -8,7 +8,7 @@ import {printPersonne,rest_api_url} from '../pages' // import our pages
 class EditFilm extends Component {
   constructor(props){
     super(props);
-    this.state = {film:null,err:null,isLoaded: false};
+    this.state = {film:null,err:null,isLoaded: false,realisateur:null,acteurs:[]};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -36,12 +36,41 @@ class EditFilm extends Component {
         film.titreO=event.target.value;
       }
       this.setState({film});
-      console.log('this.state.film.titre='+this.state.film.titre);
+      //console.log('this.state.film.titre='+this.state.film.titre);
   }
 
   handleSubmit = (event) => {
+    event.preventDefault();
       alert('this.state.film.titre=' + this.state.film.titre);
-      event.preventDefault();
+      var res = this.doSubmit(this.state.film);
+      alert('res=' + res);
+
+  }
+
+  getDataFromRealisateur = (realisateur) => {
+    console.log('realisateur='+realisateur);
+    this.setState({realisateur: realisateur });
+  }
+
+  getDataFromActeurs = (acteurs) => {
+    console.log('acteurs='+acteurs);
+    this.setState({acteurs: acteurs });
+  }
+
+  doSubmit = (data) => {
+    console.log('data='+data.id);
+    return fetch(rest_api_url+'films/byId/'+this.props.match.params.filmId, {
+      method: 'POST',
+      mode: 'CORS',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstParam: this.state.film,
+        secondParam: this.props.match.params.filmId,
+      })
+    }).then(res => {return res;}).catch(err => err);
   }
 
   render() {
@@ -72,8 +101,8 @@ class EditFilm extends Component {
               <Annee film_annee={film.annee} label='Année'/>
               <Dvd dvd={dvd}/>
               <Annee film_annee={dvd.annee} label='Année DVD'/>
-              <Realisateur key={realisateur.id} id={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur' />
-              <Acteurs acteurs={acteurs} label='Acteurs' />
+              <Realisateur key={realisateur.id} id={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur' callbackFromEditFilm={this.getDataFromRealisateur}/>
+              <Acteurs acteurs={acteurs} label='Acteurs' callbackFromEditFilm={this.getDataFromActeurs}/>
               <button type="submit" className="btn btn-primary">Submit</button>
             </div>
         </form>

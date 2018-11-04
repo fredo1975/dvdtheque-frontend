@@ -26,7 +26,9 @@ class Realisateur extends PureComponent {
       let change = {};
       change[event.target.name] = event.target.value;
       this.setState(change);
+      this.props.callbackFromEditFilm(event.target.value);
   }
+
   render() {
     const label = this.state.label;
     const id = this.state.id;

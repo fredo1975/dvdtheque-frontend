@@ -44,13 +44,23 @@ class Acteurs extends PureComponent {
     )
   }
   handleSelect(event) {
-      let change = {};
-      change[event.target.name] = event.target.value;
-      this.setState(change);
+    var options = event.target.options;
+    var selectedValue = [];
+    for (var i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        console.log('options['+i+'].value='+options[i].value);
+        selectedValue.push(options[i].value);
+      }
+    }
+    let change = {};
+    change[event.target.name] = event.target.value;
+    this.setState(change);
+    this.props.callbackFromEditFilm(selectedValue);
   }
   render() {
     const acteurs_list = this.state.acteurs;
     const isLoaded = this.state.isLoaded;
+    const label = this.props.label;
     //console.log('print='+print);
     if(this.state.error){
       return <div className="container-fluid text-center"><h3>Error : {this.state.error.message} film</h3></div>;
@@ -58,7 +68,9 @@ class Acteurs extends PureComponent {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
       return(
-          <select className="custom-select" size="20" multiple defaultValue={this.state.selected}>
+        <div className="form-group">
+        <label>{label}
+          <select className="custom-select" size="20" multiple defaultValue={this.state.selected} onChange={this.handleSelect}>
           {
             acteurs_list.map((acteur)=>{
               return (
@@ -67,6 +79,8 @@ class Acteurs extends PureComponent {
             })
           }
           </select>
+          </label>
+          </div>
       )
     }
   }

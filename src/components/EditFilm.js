@@ -8,7 +8,7 @@ import {printPersonne,rest_api_url} from '../pages' // import our pages
 class EditFilm extends Component {
   constructor(props){
     super(props);
-    this.state = {film:null,err:null,isLoaded: false,realisateur:null,acteurs:[]};
+    this.state = {film:null,err:null,isLoaded: false,realisateur:null,acteurs:[],isUpdated:false};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -35,16 +35,13 @@ class EditFilm extends Component {
       }else{
         film.titreO=event.target.value;
       }
+
       this.setState({film});
-      //console.log('this.state.film.titre='+this.state.film.titre);
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-      alert('this.state.film.titre=' + this.state.film.titre);
-      var res = this.doSubmit(this.state.film);
-      alert('res=' + res);
-
+    this.doSubmit(this.state.film);
   }
 
   getDataFromRealisateur = (realisateur) => {
@@ -53,24 +50,25 @@ class EditFilm extends Component {
   }
 
   getDataFromActeurs = (acteurs) => {
-    console.log('acteurs='+acteurs);
     this.setState({acteurs: acteurs });
   }
 
-  doSubmit = (data) => {
-    console.log('data='+data.id);
-    return fetch(rest_api_url+'films/byId/'+this.props.match.params.filmId, {
-      method: 'POST',
-      mode: 'CORS',
+  doSubmit = (film) => {
+    //console.log('film='+JSON.stringify(film));
+    fetch(rest_api_url+'films/byId/'+film.id, {
+      method: 'PUT',
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        firstParam: this.state.film,
-        secondParam: this.props.match.params.filmId,
-      })
-    }).then(res => {return res;}).catch(err => err);
+      body: JSON.stringify(film)
+    }).then((result)=> {
+        this.setState({isUpdated: true});
+    },
+    (error)=>{
+      this.setState({error,isLoaded: true,isUpdated:false});
+      console.log('error='+error);
+    }
+  )
   }
 
   render() {
@@ -82,13 +80,13 @@ class EditFilm extends Component {
     }else{
       const film = this.state.film;
       const dvd = this.state.film.dvd;
-      const realisateur = this.state.film.personnesFilm.realisateur.personne;
-      const acteurs = this.state.film.personnesFilm.acteurs;
-      //console.log('this.state.film='+this.state.film.dvd.zone);
+      const realisateur = this.state.film.realisateur;
+      const acteurs = this.state.film.acteurs;
+      const updated = this.state.isUpdated==true?'Le Film a bien été updaté':'';
       return(
         <div className="container">
         <form id="principal" onSubmit={this.handleSubmit}>
-            <div className="col-md-5 offset-md-3">
+            <div className="col-md-7 offset-md-2">
             <h2>Film Edition</h2>
               <div className="form-group">
                 <label htmlFor="titre">Titre</label>
@@ -104,6 +102,7 @@ class EditFilm extends Component {
               <Realisateur key={realisateur.id} id={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur' callbackFromEditFilm={this.getDataFromRealisateur}/>
               <Acteurs acteurs={acteurs} label='Acteurs' callbackFromEditFilm={this.getDataFromActeurs}/>
               <button type="submit" className="btn btn-primary">Submit</button>
+              <div>{updated}</div>
             </div>
         </form>
         </div>

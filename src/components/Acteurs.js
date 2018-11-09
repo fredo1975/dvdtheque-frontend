@@ -5,7 +5,7 @@ import {printPersonne,rest_api_url} from '../pages' // import our pages
 const getSelectedFromActeurList = function(acteurs) {
   var selected = selected || [];
   acteurs.map((acteur)=>{
-    selected.push(acteur.personne.id);
+    selected.push(acteur.id);
     }
   )
   return selected;

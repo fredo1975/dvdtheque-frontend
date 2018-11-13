@@ -1,5 +1,6 @@
 import React from "react";
 import FilmRow from "./FilmRow";
+import PropTypes from 'prop-types'
 
 function FilmList(props) {
   //console.log(props.films);
@@ -33,4 +34,7 @@ function FilmList(props) {
   );
 }
 
+FilmList.propTypes = {
+  films : PropTypes.array,
+}
 export default FilmList;

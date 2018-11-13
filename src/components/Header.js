@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import NavLink from "./NavLink";
 
 class Header extends Component {
@@ -17,7 +16,7 @@ class Header extends Component {
   handleClick(i) {
     const links = this.state.links.slice();
     for (const j in links) {
-      links[j].isActive = i == j ;
+      links[j].isActive = i === j ;
     }
     this.setState({links: links});
   }
@@ -42,32 +41,6 @@ class Header extends Component {
       </nav>
         </header>
       )
-
-/*
-      const Header = () => (
-        <header>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a className="navbar-brand" href="#">Navbar</a>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
-            <Link className="nav-link" to='/'>Liste des Films <span className="sr-only">(current)</span></Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to='/AddFilm'>Ajouter un film</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to='/AddPersonne'>Ajouter une personne</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to='/UpdatePersonne'>Modifier une personne</Link>
-          </li>
-            </ul>
-      </div>
-      </nav>
-        </header>
-      )*/
-
       return(
         <Header/>
       )

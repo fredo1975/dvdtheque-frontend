@@ -11,13 +11,6 @@ const getSelectedFromActeurList = function(acteurs) {
   return selected;
 }
 
-const isActeurSelected = function(id,selected) {
-  var found = selected.find(function(element) {
-    return element==id;
-  });
-  return found;
-}
-
 class Acteurs extends PureComponent {
   constructor(props){
     super(props);

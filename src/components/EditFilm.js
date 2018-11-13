@@ -4,8 +4,9 @@ import Annee from "./Annee";
 import Realisateur from "./Realisateur";
 import Acteurs from "./Acteurs";
 import {printPersonne,rest_api_url} from '../pages' // import our pages
+import PropTypes from 'prop-types'
 
-class EditFilm extends Component {
+export default class EditFilm extends Component {
   constructor(props){
     super(props);
     this.state = {film:null,err:null,isLoaded: false,realisateur:null,acteurs:[],isUpdated:false};
@@ -30,7 +31,7 @@ class EditFilm extends Component {
   }
   handleChange(event) {
       let film = Object.assign({}, this.state.film);
-      if(event.target.id=='titre'){
+      if(event.target.id==='titre'){
         film.titre=event.target.value;
       }else{
         film.titreO=event.target.value;
@@ -82,7 +83,7 @@ class EditFilm extends Component {
       const dvd = this.state.film.dvd;
       const realisateur = this.state.film.realisateur;
       const acteurs = this.state.film.acteurs;
-      const updated = this.state.isUpdated==true?'Le Film a bien été updaté':'';
+      const updated = this.state.isUpdated===true?'Le Film a bien été updaté':'';
       return(
         <div className="container">
         <form id="principal" onSubmit={this.handleSubmit}>
@@ -111,4 +112,10 @@ class EditFilm extends Component {
   }
 }
 
-export default EditFilm;
+EditFilm.propTypes = {
+  film : PropTypes.object,
+  dvd : PropTypes.object,
+  realisateur : PropTypes.object,
+  acteurs : PropTypes.array,
+  isUpdated : PropTypes.boolean,
+}

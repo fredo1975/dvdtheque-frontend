@@ -4,7 +4,7 @@ import Home from "./Home";
 import EditFilm from "./EditFilm";
 import {AddFilm, UpdatePersonne, AddPersonne} from '../pages' // import our pages
 
-class Main extends Component {
+export default class Main extends Component {
   constructor(){
     super();
     this.state = {films:[]};
@@ -24,5 +24,3 @@ class Main extends Component {
       )
   }
 }
-
-export default Main

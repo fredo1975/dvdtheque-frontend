@@ -1,0 +1,5 @@
+export const ADD_FILM = 'ADD_FILM'
+export const DELETE_FILM = 'DELETE_FILM'
+export const EDIT_FILM = 'EDIT_FILM'
+export const LIST_FILM = 'LIST_FILM'
+export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'

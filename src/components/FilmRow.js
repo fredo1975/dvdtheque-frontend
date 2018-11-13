@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 
-class FilmRow extends React.PureComponent{
+export default class FilmRow extends React.PureComponent{
   render() {
     const { id, titre, realisateur, acteurs, annee, ripped } = this.props;
 
@@ -27,4 +27,3 @@ class FilmRow extends React.PureComponent{
     );
   }
 }
-export default FilmRow;

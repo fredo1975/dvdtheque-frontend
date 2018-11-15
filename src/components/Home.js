@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FilmList from "./FilmList";
 import {rest_api_url} from '../pages' // import our pages
+import {fetchFilms} from '../actions'
 
 class Home extends Component {
   constructor(props){

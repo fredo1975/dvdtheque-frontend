@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 export default class FilmRow extends React.PureComponent{
   render() {
     const { id, titre, realisateur, acteurs, annee, ripped } = this.props;
-
-    //console.log(`render FilmRow :: ${id} :: ${titre}`);
     return (
       <tr>
         <td>

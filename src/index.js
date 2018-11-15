@@ -12,32 +12,17 @@ import rootReducer from './routes'
 
 export const history = createBrowserHistory()
 
-const initialState = {}
-const enhancers = []
-const middleware = [
-  thunk,
-  routerMiddleware(history)
-]
-
-if (process.env.NODE_ENV === 'development') {
-  const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
-
-  if (typeof devToolsExtension === 'function') {
-    enhancers.push(devToolsExtension())
-  }
-}
-
-const composedEnhancers = compose(
-  applyMiddleware(...middleware),
-  ...enhancers
-)
-
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
   rootReducer(history),
-  initialState,
-  composedEnhancers
+  composeEnhancer(
+    applyMiddleware(
+      routerMiddleware(history),thunk,
+    ),
+  ),
 )
+
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
@@ -49,3 +34,16 @@ const render = () => {
 }
 
 render()
+
+// Hot reloading
+if (module.hot) {
+  // Reload components
+  module.hot.accept('./components/App', () => {
+    render()
+  })
+
+  // Reload reducers
+  module.hot.accept('./reducers', () => {
+    store.replaceReducer(rootReducer(history))
+  })
+}

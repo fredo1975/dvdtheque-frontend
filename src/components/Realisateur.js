@@ -1,27 +1,15 @@
 import React, { PureComponent } from 'react';
-import {printPersonne,rest_api_url} from '../pages' // import our pages
+import {printPersonne} from '../pages' // import our pages
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 
 class Realisateur extends PureComponent {
-  constructor(props){
-    super(props);
-    this.state = {real:'',print:props.print==null?'Non renseigné':props.print,label:props.label,realisateurs:[],id:props.id};
+  constructor(){
+    super();
     this.handleChange = this.handleChange.bind(this);
   }
-  componentDidMount(){
-    fetch(rest_api_url+'realisateurs', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(result => result.json()).then((result)=> {
-          this.setState({isLoaded: true,realisateurs:result});
-    },
-    (error)=>{
-      this.setState({error,isLoaded: true,});
-      console.log('error='+error);
-    }
-    )
-  }
+  
   handleChange(event) {
       let change = {};
       change[event.target.name] = event.target.value;
@@ -30,15 +18,12 @@ class Realisateur extends PureComponent {
   }
 
   render() {
-    const label = this.state.label;
-    const id = this.state.id;
-    const real_list = this.state.realisateurs;
-    const isLoaded = this.state.isLoaded;
-    //console.log('print='+print);
-    if(this.state.error){
-      return <div className="container-fluid text-center"><h3>Error : {this.state.error.message} film</h3></div>;
-    }else if (!isLoaded) {
-      return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
+    const label = this.props.label;
+    const id = this.props.id;
+    const real_list = this.props.realisateurs;
+    const hasError = this.props.hasError;
+    if(hasError){
+      return <div className="container-fluid text-center"><h3>Error : {this.props.error.message} film</h3></div>;
     }else{
       return(
         <div className="form-group">
@@ -55,5 +40,12 @@ class Realisateur extends PureComponent {
   }
   }
 }
+Realisateur.propTypes = {
+  realisateurs : PropTypes.object,
+}
+const mapStateToProps = state => {
+  return { realisateurs: state.realisateurList.realisateurs,isLoaded:state.realisateurList.isLoaded,error:state.realisateurList.error,hasError: state.realisateurList.hasError};
+};
 
-export default Realisateur;
+export default withRouter(connect(mapStateToProps)(Realisateur))
+

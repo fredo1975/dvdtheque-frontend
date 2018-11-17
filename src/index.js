@@ -5,17 +5,18 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import { createStore, applyMiddleware, compose } from 'redux'
-import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { routerMiddleware } from 'connected-react-router'
 import thunk from 'redux-thunk'
 import createBrowserHistory from 'history/createBrowserHistory'
 import rootReducer from './routes'
+import filmList from './reducers/filmList'
 
 export const history = createBrowserHistory()
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-  rootReducer(history),
+  rootReducer(history,filmList),
   composeEnhancer(
     applyMiddleware(
       routerMiddleware(history),thunk,

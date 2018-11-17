@@ -9,7 +9,7 @@ export const requestListFilm = () => ({
 export const receivedListFilm = result => ({
   type: types.RECEIVED_LIST_FILM,
   isLoaded: true,
-  films:result,
+  films:{result},
 });
 
 export const errorOccuredWhenRequestListFilm = (error) => ({
@@ -19,7 +19,7 @@ export const errorOccuredWhenRequestListFilm = (error) => ({
 })
 
 export function fetchFilms() {
-  return function (dispatch) {
+  return (dispatch) => {
    dispatch(requestListFilm());
    return fetch(rest_api_url+'films', {
        method: 'GET',

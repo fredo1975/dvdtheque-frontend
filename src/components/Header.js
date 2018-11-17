@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NavLink from "./NavLink";
 
-class Header extends Component {
+export default class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +24,7 @@ class Header extends Component {
       const Header = () => (
         <header>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a className="navbar-brand" target="_blank">Navbar</a>
+          <a className="navbar-brand" href="_blank">Navbar</a>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
           {this.state.links.map((link, i) =>
@@ -47,5 +47,3 @@ class Header extends Component {
 
   }
 }
-
-export default Header;

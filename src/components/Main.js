@@ -5,10 +5,7 @@ import EditFilm from "./EditFilm";
 import {AddFilm, UpdatePersonne, AddPersonne} from '../pages' // import our pages
 
 export default class Main extends Component {
-  constructor(){
-    super();
-    this.state = {films:[]};
-  }
+  
 
   render() {
     return(

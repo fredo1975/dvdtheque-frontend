@@ -10,13 +10,14 @@ import thunk from 'redux-thunk'
 import createBrowserHistory from 'history/createBrowserHistory'
 import rootReducer from './routes'
 import filmList from './reducers/filmList'
+import filmEdit from './reducers/filmEdit'
 
 export const history = createBrowserHistory()
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-  rootReducer(history,filmList),
+  rootReducer(history,filmList,filmEdit),
   composeEnhancer(
     applyMiddleware(
       routerMiddleware(history),thunk,

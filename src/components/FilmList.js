@@ -35,12 +35,4 @@ FilmList.propTypes = {
   films : PropTypes.array,
 }
 
-const mapStateToProps = state => ({
-  count: state.count,
-})
-
-const mapDispatchToProps = dispatch => ({
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilmList)
+export default FilmList

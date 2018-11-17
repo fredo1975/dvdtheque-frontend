@@ -5,29 +5,19 @@ import Realisateur from "./Realisateur";
 import Acteurs from "./Acteurs";
 import {printPersonne,rest_api_url} from '../pages' // import our pages
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
+import {fetchFilmById} from '../actions'
 
-export default class EditFilm extends Component {
-  constructor(props){
-    super(props);
-    this.state = {film:null,err:null,isLoaded: false,realisateur:null,acteurs:[],isUpdated:false};
+class EditFilm extends Component {
+  constructor(){
+    super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
-    fetch(rest_api_url+'films/byId/'+this.props.match.params.filmId, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(result => result.json()).then((result)=> {
-          this.setState({isLoaded: true,film:result});
-    },
-    (error)=>{
-      this.setState({error,isLoaded: true,});
-      console.log('error='+error);
-    }
-    )
+    this.props.fetchFilmById(Number(this.props.match.params.filmId));
   }
   handleChange(event) {
       let film = Object.assign({}, this.state.film);
@@ -73,17 +63,16 @@ export default class EditFilm extends Component {
   }
 
   render() {
-    const isLoaded = this.state.isLoaded;
-    if(this.state.error){
-      return <div className="container-fluid text-center"><h3>Error : {this.state.error.message} film</h3></div>;
+    const {isLoaded,film,error,hasError} = this.props;
+    const updated = this.props.updated===true?'Le Film a bien été updaté':'';
+    if(hasError){
+      return <div className="container-fluid text-center"><h3>Error : {error.message} film</h3></div>;
     }else if (!isLoaded) {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
-      const film = this.state.film;
-      const dvd = this.state.film.dvd;
-      const realisateur = this.state.film.realisateur;
-      const acteurs = this.state.film.acteurs;
-      const updated = this.state.isUpdated===true?'Le Film a bien été updaté':'';
+      const dvd = film.dvd;
+      const realisateur = film.realisateur;
+      const acteurs = film.acteurs;
       return(
         <div className="container">
         <form id="principal" onSubmit={this.handleSubmit}>
@@ -117,5 +106,16 @@ EditFilm.propTypes = {
   dvd : PropTypes.object,
   realisateur : PropTypes.object,
   acteurs : PropTypes.array,
-  isUpdated : PropTypes.boolean,
+  filmId : PropTypes.number,
 }
+const mapStateToProps = (state, ownProps) => {
+  return { film: state.filmEdit.film, isLoaded:state.filmEdit.isLoaded, error:state.filmEdit.error, id : ownProps.match.params.filmId };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchFilmById: filmId => dispatch(fetchFilmById(filmId))
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditFilm))

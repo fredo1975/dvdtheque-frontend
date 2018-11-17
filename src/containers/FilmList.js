@@ -1,7 +1,6 @@
 import React from "react";
 import FilmRow from "./FilmRow";
 import PropTypes from 'prop-types'
-//import { connect } from 'react-redux'
 
 const FilmList = (props) => (
   <div>
@@ -22,7 +21,7 @@ const FilmList = (props) => (
     {
       props.films.map((film) => {
         return (
-          <FilmRow key={film.id} id={film.id} titre={film.titre} realisateur={film.printRealisateur} acteurs={film.printActeurs} annee={film.annee} ripped={film.ripped===true?"oui":"non"}/>
+          <FilmRow key={film.id} film={film} titre={film.titre} realisateur={film.printRealisateur} acteurs={film.printActeurs} annee={film.annee} ripped={film.ripped===true?"oui":"non"}/>
         );
       })
     }
@@ -34,14 +33,5 @@ const FilmList = (props) => (
 FilmList.propTypes = {
   films : PropTypes.array,
 }
-/*
-const mapStateToProps = state => ({
-  films: state.films,
-})
 
-const mapDispatchToProps = dispatch => ({
-
-})
-*/
-//export default connect(mapStateToProps)(FilmList)
 export default FilmList;

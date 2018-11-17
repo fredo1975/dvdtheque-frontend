@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 
-const rootReducer = (history,filmList) => combineReducers({
+const rootReducer = (history,filmList,filmEdit) => combineReducers({
   router: connectRouter(history),
-  filmList
+  filmList,
+  filmEdit,
 })
 
 export default rootReducer

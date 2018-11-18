@@ -20,7 +20,7 @@ class EditFilm extends Component {
     this.props.fetchFilmById(Number(this.props.match.params.filmId));
   }
   handleChange(event) {
-      let film = Object.assign({}, this.state.film);
+      let film = Object.assign({}, this.props.film);
       if(event.target.id==='titre'){
         film.titre=event.target.value;
       }else{
@@ -64,7 +64,7 @@ class EditFilm extends Component {
 
   render() {
     const {isLoaded,film,error,hasError} = this.props;
-    const updated = this.props.updated===true?'Le Film a bien été updaté':'';
+    const isUpdated = this.props.isUpdated===true?'Le Film a bien été updaté':'';
     if(hasError){
       return <div className="container-fluid text-center"><h3>Error : {error.message} film</h3></div>;
     }else if (!isLoaded) {
@@ -92,7 +92,7 @@ class EditFilm extends Component {
               <Realisateur key={realisateur.id} id={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur' callbackFromEditFilm={this.getDataFromRealisateur}/>
               <Acteurs acteurs={acteurs} label='Acteurs' callbackFromEditFilm={this.getDataFromActeurs}/>
               <button type="submit" className="btn btn-primary">Submit</button>
-              <div>{updated}</div>
+              <div>{isUpdated}</div>
             </div>
         </form>
         </div>

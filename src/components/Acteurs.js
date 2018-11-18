@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
-import {printPersonne,rest_api_url} from '../pages' // import our pages
-
+import {printPersonne} from '../pages' // import our pages
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 
 const getSelectedFromActeurList = function(acteurs) {
   var selected = selected || [];
-  acteurs.map((acteur)=>{
+  acteurs.map(acteur=>{
     selected.push(acteur.id);
     }
   )
@@ -12,30 +14,11 @@ const getSelectedFromActeurList = function(acteurs) {
 }
 
 class Acteurs extends PureComponent {
-  constructor(props){
-    super(props);
-    this.state = {
-      label:props.label,
-      acteurs:props.acteurs,
-      selected: getSelectedFromActeurList(props.acteurs)
-    };
+  constructor(){
+    super();
     this.handleSelect = this.handleSelect.bind(this);
   }
-  componentDidMount(){
-    fetch(rest_api_url+'acteurs', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(result => result.json()).then((result)=> {
-          this.setState({isLoaded: true,acteurs:result});
-    },
-    (error)=>{
-      this.setState({error,isLoaded: true,});
-      console.log('error='+error);
-    }
-    )
-  }
+  
   handleSelect(event) {
     var options = event.target.options;
     var selectedValue = [];
@@ -51,11 +34,12 @@ class Acteurs extends PureComponent {
     this.props.callbackFromEditFilm(selectedValue);
   }
   render() {
-    const acteurs_list = this.state.acteurs;
-    const isLoaded = this.state.isLoaded;
+    const acteurs_list = this.props.acteurs;
+    const isLoaded = this.props.isLoaded;
     const label = this.props.label;
+    const selected = getSelectedFromActeurList(this.props.film.acteurs);
     //console.log('print='+print);
-    if(this.state.error){
+    if(this.props.hasError){
       return <div className="container-fluid text-center"><h3>Error : {this.state.error.message} film</h3></div>;
     }else if (!isLoaded) {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
@@ -63,7 +47,7 @@ class Acteurs extends PureComponent {
       return(
         <div className="form-group">
         <label>{label}
-          <select className="custom-select" size="20" multiple defaultValue={this.state.selected} onChange={this.handleSelect}>
+          <select className="custom-select" size="20" multiple defaultValue={selected} onChange={this.handleSelect}>
           {
             acteurs_list.map((acteur)=>{
               return (
@@ -78,5 +62,11 @@ class Acteurs extends PureComponent {
     }
   }
 }
+Acteurs.propTypes = {
+  acteurs : PropTypes.array,
+}
+const mapStateToProps = state => {
+  return { acteurs: state.acteurList.acteurs,isLoaded:state.acteurList.isLoaded,error:state.acteurList.error,hasError: state.acteurList.hasError,film:state.filmEdit.film};
+};
 
-export default Acteurs;
+export default withRouter(connect(mapStateToProps)(Acteurs))

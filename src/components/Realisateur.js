@@ -28,7 +28,7 @@ class Realisateur extends PureComponent {
       return(
         <div className="form-group">
             <label>Realisateur</label>
-            <select className="form-control" name='id' value={id} onChange={this.handleChange}>
+            <select className="form-control" name='realId' value={id} onChange={this.handleChange}>
             {
               real_list.map((real)=>{
                 return <option key={real.id} value={real.id}>{printPersonne(real.prenom,real.nom)}</option>
@@ -41,7 +41,7 @@ class Realisateur extends PureComponent {
   }
 }
 Realisateur.propTypes = {
-  realisateurs : PropTypes.object,
+  realisateurs : PropTypes.array,
 }
 const mapStateToProps = state => {
   return { realisateurs: state.realisateurList.realisateurs,isLoaded:state.realisateurList.isLoaded,error:state.realisateurList.error,hasError: state.realisateurList.hasError};

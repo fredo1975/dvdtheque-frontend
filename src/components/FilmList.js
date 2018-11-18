@@ -1,7 +1,6 @@
 import React from "react";
 import FilmRow from "./FilmRow";
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
 const FilmList = (props) => (
   <div>

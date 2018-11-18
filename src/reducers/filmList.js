@@ -18,7 +18,6 @@ const filmList = (state = {error:{},isLoaded:false,films:[],hasError:false},acti
       }
     case ERROR_WHEN_REQUEST_LIST_FILM:
       return {
-        ...state,
         isLoaded: true,
         hasError:true,
       }

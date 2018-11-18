@@ -1,7 +1,7 @@
 import {REQUEST_LIST_REALISATEUR, RECEIVED_LIST_REALISATEUR,ERROR_WHEN_REQUEST_LIST_REALISATEUR} from '../constants/ActionTypes'
 import PropTypes from 'prop-types'
 
-const realisateurList = (state = {error:{},isLoaded:false,films:[],hasError:false},action) => {
+const realisateurList = (state = {error:{},isLoaded:false,realisateurs:[],hasError:false},action) => {
   switch (action.type) {
     case REQUEST_LIST_REALISATEUR:
       return {

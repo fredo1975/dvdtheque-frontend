@@ -1,7 +1,7 @@
 import {ERROR_WHEN_EDIT_FILM, REQUEST_EDIT_FILM,RECEIVED_EDIT_FILM} from '../constants/ActionTypes'
 import PropTypes from 'prop-types'
 
-const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,filmId:null},action) => {
+const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,filmId:null,},action) => {
     switch (action.type) {
       case REQUEST_EDIT_FILM:
         return {

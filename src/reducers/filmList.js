@@ -20,6 +20,7 @@ const filmList = (state = {error:{},isLoaded:false,films:[],hasError:false},acti
       return {
         isLoaded: true,
         hasError:true,
+        error:action.error
       }
     default:
       return state

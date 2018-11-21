@@ -3,34 +3,24 @@ import {printPersonne} from '../pages' // import our pages
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
+import {changeRealisateur} from '../actions'
 
 class Realisateur extends PureComponent {
-  constructor(){
-    super();
-    this.handleChange = this.handleChange.bind(this);
+  
+  changeRealisateur = (event) => {
+    this.props.changeRealisateur(Number(event.target.value));
   }
   
-  handleChange(event) {
-      let change = {};
-      change[event.target.name] = event.target.value;
-      this.setState(change);
-      this.props.callbackFromEditFilm(event.target.value);
-  }
-
   render() {
-    const label = this.props.label;
-    const id = this.props.id;
-    const real_list = this.props.realisateurs;
-    const hasError = this.props.hasError;
-    if(hasError){
+    if(this.props.hasError){
       return <div className="container-fluid text-center"><h3>Error : {this.props.error.message} film</h3></div>;
     }else{
       return(
         <div className="form-group">
-            <label>Realisateur</label>
-            <select className="form-control" name='realId' value={id} onChange={this.handleChange}>
+            <label>{this.props.label}</label>
+            <select className="form-control" name='realisateurSelected' value={this.props.realisateurSelected} onChange={this.changeRealisateur}>
             {
-              real_list.map((real)=>{
+              this.props.realisateurs.map((real)=>{
                 return <option key={real.id} value={real.id}>{printPersonne(real.prenom,real.nom)}</option>
               })
             }
@@ -44,8 +34,19 @@ Realisateur.propTypes = {
   realisateurs : PropTypes.array,
 }
 const mapStateToProps = state => {
-  return { realisateurs: state.realisateurList.realisateurs,isLoaded:state.realisateurList.isLoaded,error:state.realisateurList.error,hasError: state.realisateurList.hasError};
+  return { 
+    realisateurs: state.realisateurList.realisateurs,
+    realisateurSelected:state.filmEdit.realisateurSelected,
+    isLoaded:state.realisateurList.isLoaded,
+    error:state.realisateurList.error,
+    hasError: state.realisateurList.hasError,
+    film : state.filmEdit.film,
+  };
 };
-
-export default withRouter(connect(mapStateToProps)(Realisateur))
+const mapDispatchToProps = dispatch => {
+  return {
+    changeRealisateur: realisateurId => dispatch(changeRealisateur(realisateurId))
+  };
+};
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Realisateur))
 

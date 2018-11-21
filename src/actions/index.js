@@ -131,6 +131,7 @@ export const receivedEditFilm = result => ({
   type: types.RECEIVED_EDIT_FILM,
   isLoaded: true,
   film:{result},
+  realisateurSelected:result.realisateur.id,
   hasError:false,
 });
 
@@ -140,10 +141,23 @@ export const errorOccuredWhenRequestEditFilm = (error) => ({
   error:error,
   hasError:true,
 })
+export const changeRealisateur = (id) => ({
+  type: types.CHANGE_REALISATEUR,
+  realisateurSelected: id,
+})
+export const changeTitre = (fieldName, fieldValue) => ({
+  type: types.CHANGE_TITRE,
+  fieldName:fieldName,
+  fieldValue:fieldValue,
+})
+export const changeAnneeFilm = (fieldValue) => ({
+  type: types.CHANGE_ANNEE,
+  fieldValue:fieldValue,
+})
 
 export function fetchFilmById(filmId) {
   return (dispatch) => {
-   dispatch(requestEditFilm());
+   dispatch(requestEditFilm(filmId));
    return fetch(rest_api_url+'films/byId/'+filmId, {
     method: 'GET',
     headers: {
@@ -157,5 +171,46 @@ export function fetchFilmById(filmId) {
      dispatch(errorOccuredWhenRequestEditFilm(error));
    }
  )}
+}
+
+export const requestUpdateFilm = (filmId) => ({
+  type: types.REQUEST_UPDATE_FILM,
+  isLoaded: false,
+  hasError:false,
+  filmId:filmId,
+});
+
+export const receivedUpdateFilm = result => ({
+  type: types.RECEIVED_UPDATE_FILM,
+  isLoaded: true,
+  film:{result},
+  realisateurSelected:result.realisateur.id,
+  hasError:false,
+});
+
+export const errorOccuredWhenUpdateFilm = (error) => ({
+  type: types.ERROR_WHEN_UPDATE_FILM,
+  isLoaded: true,
+  error:error,
+  hasError:true,
+})
+
+export function postFilm(filmId){
+  return (dispatch) => {
+    dispatch(requestUpdateFilm());
+    fetch(rest_api_url+'films/byId/'+filmId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state)
+    }).then(result => result.json())
+    .then((result) => {
+       dispatch(receivedUpdateFilm(result));
+    },
+    (error)=>{
+      dispatch(errorOccuredWhenUpdateFilm(error));
+    }
+  )}
 }
 /************************************************************/

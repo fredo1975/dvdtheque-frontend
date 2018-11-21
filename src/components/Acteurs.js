@@ -6,10 +6,7 @@ import { withRouter } from 'react-router-dom'
 
 const getSelectedFromActeurList = function(acteurs) {
   var selected = selected || [];
-  acteurs.map(acteur=>{
-    selected.push(acteur.id);
-    }
-  )
+  acteurs.map(acteur=>selected.push(acteur.id))
   return selected;
 }
 
@@ -29,6 +26,9 @@ class Acteurs extends PureComponent {
       }
     }
     let change = {};
+
+    console.log('event.target.name='+event.target.name);
+    console.log('event.target.value='+event.target.value);
     change[event.target.name] = event.target.value;
     this.setState(change);
     this.props.callbackFromEditFilm(selectedValue);

@@ -21,6 +21,7 @@ const realisateurList = (state = {error:{},isLoaded:false,realisateurs:[],hasErr
         ...state,
         isLoaded: true,
         hasError:true,
+        error:action.error,
       }
     default:
       return state

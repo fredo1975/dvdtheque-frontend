@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import {changeAnneeFilm} from '../actions'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
 
 class Annee extends Component {
   constructor(props){
@@ -15,10 +17,8 @@ class Annee extends Component {
     }
   }
 
-  handleChange(event) {
-      let change = {};
-      change[event.target.name] = event.target.value;
-      this.setState(change);
+  handleChange = (event) => {
+    this.props.changeAnneeFilm(event.target.value);
   }
   render() {
     const film_annee = this.state.film_annee;
@@ -38,5 +38,9 @@ class Annee extends Component {
     )
   }
 }
-
-export default Annee;
+const mapDispatchToProps = dispatch => {
+  return {
+    changeAnneeFilm : (fieldValue) => dispatch(changeAnneeFilm(fieldValue)),
+  };
+};
+export default withRouter(connect(null,mapDispatchToProps)(Annee))

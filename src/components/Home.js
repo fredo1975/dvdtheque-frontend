@@ -26,6 +26,7 @@ class Home extends Component {
       acteurListFetchError,
       hasFetchListActeurError 
     } = this.props;
+
     const isLoaded = isFilmListLoaded && realisateurListLoaded && acteurListLoaded;
 
     const hasError = hasFetchListFilmError && hasFetchListRealisateurError && hasFetchListActeurError;
@@ -50,6 +51,7 @@ class Home extends Component {
     }
   }
 }
+
 
 const mapStateToProps = state => {
   return { 

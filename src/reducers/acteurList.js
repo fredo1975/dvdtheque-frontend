@@ -20,6 +20,7 @@ const acteurList = (state = {error:{},isLoaded:false,acteurs:[],hasError:false},
       return {
         isLoaded: true,
         hasError:true,
+        error:action.error,
       }
     default:
       return state

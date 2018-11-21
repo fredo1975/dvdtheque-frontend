@@ -7,37 +7,19 @@ import {printPersonne,rest_api_url} from '../pages' // import our pages
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import {fetchFilmById} from '../actions'
+import {fetchFilmById,postFilm,changeTitre} from '../actions'
 
 class EditFilm extends Component {
-  constructor(){
-    super();
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
   componentDidMount(){
-    this.props.fetchFilmById(Number(this.props.match.params.filmId));
+    this.props.fetchFilmById(this.props.match.params.filmId);
   }
-  handleChange(event) {
-      let film = Object.assign({}, this.props.film);
-      if(event.target.id==='titre'){
-        film.titre=event.target.value;
-      }else{
-        film.titreO=event.target.value;
-      }
-
-      this.setState({film});
+  handleTitreChange = (event) => {
+      this.props.changeTitre(event.target.id,event.target.value);
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.doSubmit(this.state.film);
-  }
-
-  getDataFromRealisateur = (realisateur) => {
-    console.log('realisateur='+realisateur);
-    this.setState({realisateur: realisateur });
+    this.props.postFilm(this.state.film);
   }
 
   getDataFromActeurs = (acteurs) => {
@@ -80,16 +62,16 @@ class EditFilm extends Component {
             <h2>Film Edition</h2>
               <div className="form-group">
                 <label htmlFor="titre">Titre</label>
-                <input type="text" id="titre" className="form-control" defaultValue={film.titre} onChange={this.handleChange}/>
+                <input type="text" id="titre" ref="titre" className="form-control" defaultValue={film.titre} onChange={this.handleTitreChange}/>
               </div>
               <div className="form-group">
                 <label>Titre Original</label>
-                <input type="text" id="titreO" className="form-control" defaultValue={film.titreO==null?'':film.titreO} onChange={this.handleChange}/>
+                <input type="text" id="titreO" className="form-control" defaultValue={film.titreO==null?'':film.titreO} onChange={this.handleTitreChange}/>
               </div>
               <Annee film_annee={film.annee} label='Année'/>
               <Dvd dvd={dvd}/>
               <Annee film_annee={dvd.annee} label='Année DVD'/>
-              <Realisateur key={realisateur.id} id={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur' callbackFromEditFilm={this.getDataFromRealisateur}/>
+              <Realisateur key={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur'/>
               <Acteurs acteurs={acteurs} label='Acteurs' callbackFromEditFilm={this.getDataFromActeurs}/>
               <button type="submit" className="btn btn-primary">Submit</button>
               <div>{isUpdated}</div>
@@ -100,21 +82,32 @@ class EditFilm extends Component {
   }
   }
 }
-
 EditFilm.propTypes = {
   film : PropTypes.object,
   dvd : PropTypes.object,
   realisateur : PropTypes.object,
   acteurs : PropTypes.array,
   filmId : PropTypes.number,
+  isLoaded : PropTypes.bool,
+  error : PropTypes.object,
+  id : PropTypes.string,
 }
 const mapStateToProps = (state, ownProps) => {
-  return { film: state.filmEdit.film, isLoaded:state.filmEdit.isLoaded, error:state.filmEdit.error, id : ownProps.match.params.filmId };
+  return { 
+    film: state.filmEdit.film, 
+    isLoaded:state.filmEdit.isLoaded, 
+    error:state.filmEdit.error, 
+    id : ownProps.match.params.filmId,
+    fieldValue : state.fieldValue,
+    fieldName : state.fieldName,
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchFilmById: filmId => dispatch(fetchFilmById(filmId))
+    fetchFilmById: filmId => dispatch(fetchFilmById(filmId)),
+    changeTitre : (fieldName, fieldValue) => dispatch(changeTitre(fieldName, fieldValue)),
+    postFilm : () => dispatch(postFilm()),
   };
 };
 

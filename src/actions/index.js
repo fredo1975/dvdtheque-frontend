@@ -145,14 +145,11 @@ export const changeRealisateur = (id) => ({
   type: types.CHANGE_REALISATEUR,
   realisateurSelected: id,
 })
-export const changeTitre = (fieldName, fieldValue) => ({
-  type: types.CHANGE_TITRE,
+export const changeFilmParam = (fieldName, fieldValue,obj) => ({
+  type: types.CHANGE_FILM_PARAM,
   fieldName:fieldName,
   fieldValue:fieldValue,
-})
-export const changeAnneeFilm = (fieldValue) => ({
-  type: types.CHANGE_ANNEE,
-  fieldValue:fieldValue,
+  obj:obj,
 })
 
 export function fetchFilmById(filmId) {

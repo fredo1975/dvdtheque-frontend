@@ -1,35 +1,32 @@
 import React, { Component } from 'react';
-import {changeAnneeFilm} from '../actions'
+import {changeFilmParam} from '../actions'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 
 class Annee extends Component {
-  constructor(props){
-    super(props);
-    this.state = {film_annee:props.film_annee==null?'Non renseigné':props.film_annee,label:props.label};
-    this.handleChange = this.handleChange.bind(this);
-    this.anneeList = [];
+  getAnneesSelect = () => {
+    let anneeList = [];
     var currentTime = new Date();
     var yyyy = currentTime.getFullYear();
-    this.anneeList.push('Non renseigné');
+    anneeList.push('Non renseigné');
     for(let i=yyyy;i>1930;i--){
-      this.anneeList.push(i);
+      anneeList.push(i);
     }
+    return anneeList;
   }
-
-  handleChange = (event) => {
-    this.props.changeAnneeFilm(event.target.value);
+  handleFilmParamChange = (event) => {
+    this.props.changeFilmParam(event.target.name,event.target.value,this.props.obj);
   }
   render() {
-    const film_annee = this.state.film_annee;
-    const label = this.state.label;
-    //console.log('film_annee='+film_annee);
+    const label = this.props.label;
+    const anneesSelect = this.getAnneesSelect();
     return(
       <div className="form-group">
         <label>{label}</label>
-          <select className="form-control" name="film_annee" value={film_annee} onChange={this.handleChange}>
+          <select className="form-control" name="annee" value={this.props.obj==='film'?this.props.film.annee:this.props.film.dvd.annee} onChange={this.handleFilmParamChange}>
           {
-            this.anneeList.map((annee)=>{
+            anneesSelect.map((annee)=>{
               return <option key={annee} value={annee}>{annee}</option>
             })
           }
@@ -38,9 +35,22 @@ class Annee extends Component {
     )
   }
 }
-const mapDispatchToProps = dispatch => {
-  return {
-    changeAnneeFilm : (fieldValue) => dispatch(changeAnneeFilm(fieldValue)),
+Annee.propTypes = {
+  film : PropTypes.object,
+  fieldValue : PropTypes.string,
+  fieldName : PropTypes.string,
+}
+const mapStateToProps = (state, ownProps) => {
+  return { 
+    film: state.filmEdit.film, 
+    fieldValue : state.filmEdit.fieldValue,
+    fieldName : state.filmEdit.fieldName,
   };
 };
-export default withRouter(connect(null,mapDispatchToProps)(Annee))
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeFilmParam : (fieldName, fieldValue,obj) => dispatch(changeFilmParam(fieldName, fieldValue,obj)),
+  };
+};
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Annee))

@@ -5,8 +5,7 @@ import {ERROR_WHEN_EDIT_FILM,
   REQUEST_UPDATE_FILM,
   RECEIVED_UPDATE_FILM,
   ERROR_WHEN_UPDATE_FILM,
-  CHANGE_TITRE,
-  CHANGE_ANNEE} from '../constants/ActionTypes'
+  CHANGE_FILM_PARAM} from '../constants/ActionTypes'
 import PropTypes from 'prop-types'
 
 
@@ -26,6 +25,11 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,},acti
           realisateurSelected:action.realisateurSelected,
           hasError:false,
         }
+      case ERROR_WHEN_EDIT_FILM:
+        return {
+          isLoaded: true,
+          hasError:true,
+        }
       case CHANGE_REALISATEUR:
           return {
           ...state,
@@ -33,29 +37,24 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,},acti
           realisateurSelected:action.realisateurSelected,
           hasError:false,
         }
-      case ERROR_WHEN_EDIT_FILM:
-        return {
-          isLoaded: true,
-          hasError:true,
-        }
       case REQUEST_UPDATE_FILM:
         return {
           ...state,
           isLoaded: false,
           hasError:false,
         }
-      case CHANGE_TITRE:
-        let newState={...state};
-        newState[action.fieldName]=action.fieldValue;
-        for(let v in newState){
-          console.log('v='+v);
-          for(let vv in newState.film){
-            console.log('vv='+vv+' newState.film[vv]='+newState.film[vv]);
-          }
+      case CHANGE_FILM_PARAM:
+        if(action.obj==='film'){
+          let changeFilmParamState=state.film;
+          changeFilmParamState[action.fieldName]=action.fieldValue;
+          state.film = Object.assign({}, state.film, changeFilmParamState)
+        }else{
+          let changeDvdParamState=state.film.dvd;
+          changeDvdParamState[action.fieldName]=action.fieldValue;
+          state.film.dvd = Object.assign({}, state.film.dvd, changeDvdParamState)
         }
-        
         return {
-          ...newState,
+          ...state,
           isLoaded: true,
         }
       case RECEIVED_UPDATE_FILM:
@@ -65,13 +64,6 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,},acti
           film: action.film.result,
           realisateurSelected:action.realisateurSelected,
           hasError:false,
-        }
-      case CHANGE_ANNEE:
-        //let newState={...state};
-        //state.annee=action.fieldValue;
-        return {
-          ...state,
-          isLoaded: true,
         }
       case ERROR_WHEN_UPDATE_FILM:
         return {

@@ -151,7 +151,10 @@ export const changeFilmParam = (fieldName, fieldValue,obj) => ({
   fieldValue:fieldValue,
   obj:obj,
 })
-
+export const changeActeur = (selectedValue) => ({
+  type: types.CHANGE_ACTEUR,
+  selectedValue:selectedValue,
+})
 export function fetchFilmById(filmId) {
   return (dispatch) => {
    dispatch(requestEditFilm(filmId));

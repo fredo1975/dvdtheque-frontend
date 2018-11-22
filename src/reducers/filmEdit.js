@@ -5,7 +5,9 @@ import {ERROR_WHEN_EDIT_FILM,
   REQUEST_UPDATE_FILM,
   RECEIVED_UPDATE_FILM,
   ERROR_WHEN_UPDATE_FILM,
-  CHANGE_FILM_PARAM} from '../constants/ActionTypes'
+  CHANGE_FILM_PARAM,
+  CHANGE_ACTEUR,
+} from '../constants/ActionTypes'
 import PropTypes from 'prop-types'
 
 
@@ -31,11 +33,20 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,},acti
           hasError:true,
         }
       case CHANGE_REALISATEUR:
-          return {
+        let changerealisateurState=state.film.realisateur;
+        changerealisateurState.id=action.realisateurSelected;
+        state.film.realisateur = Object.assign({}, state.film.realisateur.id, changerealisateurState)
+        return {
           ...state,
-          isLoaded: true,
           realisateurSelected:action.realisateurSelected,
-          hasError:false,
+        }
+      case CHANGE_ACTEUR:
+        let [changeActeursState]=state.film.acteurs;
+        [changeActeursState]=action.selectedValue;
+        state.film.acteurs = Object.assign({}, state.film.acteurs.id, changeActeursState)
+        return {
+          ...state,
+          realisateurSelected:action.realisateurSelected,
         }
       case REQUEST_UPDATE_FILM:
         return {

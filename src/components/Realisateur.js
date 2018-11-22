@@ -18,7 +18,7 @@ class Realisateur extends PureComponent {
       return(
         <div className="form-group">
             <label>{this.props.label}</label>
-            <select className="form-control" name='realisateurSelected' value={this.props.realisateurSelected} onChange={this.changeRealisateur}>
+            <select className="form-control" name='realisateurSelected' value={this.props.film.realisateur.id} onChange={this.changeRealisateur}>
             {
               this.props.realisateurs.map((real)=>{
                 return <option key={real.id} value={real.id}>{printPersonne(real.prenom,real.nom)}</option>

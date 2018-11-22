@@ -37,6 +37,7 @@ class Annee extends Component {
 }
 Annee.propTypes = {
   film : PropTypes.object,
+  annee : PropTypes.number,
   fieldValue : PropTypes.string,
   fieldName : PropTypes.string,
 }

@@ -14,6 +14,7 @@ const acteurList = (state = {error:{},isLoaded:false,acteurs:[],hasError:false},
         ...state,
         isLoaded: true,
         acteurs: action.acteurs.result,
+        acteurMap:action.acteurMap,
         hasError:false,
       }
     case ERROR_WHEN_REQUEST_LIST_ACTEUR:

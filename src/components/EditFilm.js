@@ -19,29 +19,7 @@ class EditFilm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.postFilm(this.state.film);
-  }
-
-  getDataFromActeurs = (acteurs) => {
-    this.setState({acteurs: acteurs });
-  }
-
-  doSubmit = (film) => {
-    //console.log('film='+JSON.stringify(film));
-    fetch(rest_api_url+'films/byId/'+film.id, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(film)
-    }).then((result)=> {
-        this.setState({isUpdated: true});
-    },
-    (error)=>{
-      this.setState({error,isLoaded: true,isUpdated:false});
-      console.log('error='+error);
-    }
-  )
+    this.props.postFilm(this.props.film);
   }
 
   render() {
@@ -54,7 +32,6 @@ class EditFilm extends Component {
     }else{
       const dvd = film.dvd;
       const realisateur = film.realisateur;
-      const acteurs = film.acteurs;
       return(
         <div className="container">
         <form id="principal" onSubmit={this.handleSubmit}>
@@ -72,9 +49,9 @@ class EditFilm extends Component {
               <Dvd dvd={dvd}/>
               <Annee label='Année DVD' obj='dvd'/>
               <Realisateur key={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur'/>
-              <Acteurs acteurs={acteurs} label='Acteurs' callbackFromEditFilm={this.getDataFromActeurs}/>
+              <Acteurs label='Acteurs'/>
               <button type="submit" className="btn btn-primary">Submit</button>
-              <div>{isUpdated}</div>
+              <div><p>{isUpdated}</p></div>
             </div>
         </form>
         </div>
@@ -89,6 +66,7 @@ EditFilm.propTypes = {
   acteurs : PropTypes.array,
   filmId : PropTypes.number,
   isLoaded : PropTypes.bool,
+  isUpdated : PropTypes.bool,
   error : PropTypes.object,
   id : PropTypes.string,
   fieldValue : PropTypes.string,
@@ -96,9 +74,10 @@ EditFilm.propTypes = {
 }
 const mapStateToProps = (state, ownProps) => {
   return { 
-    film: state.filmEdit.film, 
-    isLoaded:state.filmEdit.isLoaded, 
-    error:state.filmEdit.error, 
+    film : state.filmEdit.film, 
+    isLoaded : state.filmEdit.isLoaded,
+    isUpdated : state.filmEdit.isUpdated,
+    error : state.filmEdit.error, 
     id : ownProps.match.params.filmId,
     fieldValue : state.fieldValue,
     fieldName : state.fieldName,
@@ -109,7 +88,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchFilmById: filmId => dispatch(fetchFilmById(filmId)),
     changeFilmParam : (fieldName, fieldValue) => dispatch(changeFilmParam(fieldName, fieldValue)),
-    postFilm : () => dispatch(postFilm()),
+    postFilm : (film) => dispatch(postFilm(film)),
   };
 };
 

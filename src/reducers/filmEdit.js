@@ -33,17 +33,16 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,},acti
           hasError:true,
         }
       case CHANGE_REALISATEUR:
-        let changerealisateurState=state.film.realisateur;
+        let {realisateur:changerealisateurState}=state.film;
         changerealisateurState.id=action.realisateurSelected;
-        state.film.realisateur = Object.assign({}, state.film.realisateur.id, changerealisateurState)
+        state.film.realisateur = Object.assign({}, state.film.realisateur, changerealisateurState)
         return {
           ...state,
           realisateurSelected:action.realisateurSelected,
         }
       case CHANGE_ACTEUR:
-        let [changeActeursState]=state.film.acteurs;
-        [changeActeursState]=action.selectedValue;
-        state.film.acteurs = Object.assign({}, state.film.acteurs.id, changeActeursState)
+        let {acteurs:changeActeursState}=action.newActeurList;
+        state.film.acteurs = Object.assign({}, state.film.acteurs, changeActeursState)
         return {
           ...state,
           realisateurSelected:action.realisateurSelected,
@@ -55,7 +54,7 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,},acti
           hasError:false,
         }
       case CHANGE_FILM_PARAM:
-        if(action.obj==='film'){
+        if(action.obj==='film' || typeof action.obj == "undefined"){
           let changeFilmParamState=state.film;
           changeFilmParamState[action.fieldName]=action.fieldValue;
           state.film = Object.assign({}, state.film, changeFilmParamState)
@@ -72,7 +71,7 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,},acti
         return {
           ...state,
           isLoaded: true,
-          film: action.film.result,
+          isUpdated:true,
           realisateurSelected:action.realisateurSelected,
           hasError:false,
         }

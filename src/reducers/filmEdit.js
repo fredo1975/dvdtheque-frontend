@@ -41,8 +41,7 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{},hasError:false,},acti
           realisateurSelected:action.realisateurSelected,
         }
       case CHANGE_ACTEUR:
-        let {acteurs:changeActeursState}=action.newActeurList;
-        state.film.acteurs = Object.assign({}, state.film.acteurs, changeActeursState)
+        state.film.acteurs = action.newActeurList
         return {
           ...state,
           realisateurSelected:action.realisateurSelected,

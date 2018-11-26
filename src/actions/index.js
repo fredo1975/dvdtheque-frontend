@@ -101,10 +101,8 @@ export function fetchRealisateurs() {
 }
 export const buildIndexListActeur = acteurList => {
   var acteurMap = {};
-  var res = {};
   for(let i=0;i<acteurList.length;i++){
-    acteurMap = {[acteurList[i].id]:acteurList[i]};
-    //[res]= {...acteurMap};
+    acteurMap = {...acteurMap,[Number(acteurList[i].id)]:acteurList[i]};
   }
   return acteurMap;
 }
@@ -118,7 +116,6 @@ export function fetchActeurs() {
       }
    }).then(result => result.json())
    .then((resultActeurs) => {
-      
       dispatch(receivedListActeur(resultActeurs,buildIndexListActeur(resultActeurs)));
    },
    (error)=>{
@@ -165,7 +162,6 @@ export const changeFilmParam = (fieldName, fieldValue,obj) => ({
 export const changeActeur = (selectedValue) => ({
   type: types.CHANGE_ACTEUR,
   newActeurList : selectedValue,
-  selectedValue:selectedValue,
 })
 export function fetchFilmById(filmId) {
   return (dispatch) => {
@@ -183,17 +179,6 @@ export function fetchFilmById(filmId) {
      dispatch(errorOccuredWhenRequestEditFilm(error));
    }
  )}
-}
-
-export const createNewActeurList = (selectedValue) => {
-  let acteurList = [];
-  for(let index=0;index<selectedValue.length;index++){
-    let acteur = {
-      id : selectedValue[index],
-    }
-    acteurList.push(acteur);
-  }
-  return acteurList;
 }
 export const requestUpdateFilm = () => ({
   type: types.REQUEST_UPDATE_FILM,

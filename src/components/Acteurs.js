@@ -10,7 +10,7 @@ class Acteurs extends PureComponent {
   
   getSelectedFromActeurList = (acteurs) => {
     var selected = selected || [];
-    acteurs.map(acteur=>selected.push(acteur))
+    acteurs.map(acteur=>selected.push(acteur.id))
     return selected;
   }
   handleSelect = (event) => {
@@ -18,17 +18,14 @@ class Acteurs extends PureComponent {
     var selectedValue = [];
     for (var i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
-        //console.log('options['+i+'].value='+options[i].value);
-        let acteur = this.props.acteurMap.get(Number(options[i].value));
+        let acteur = {id:Number(options[i].value),...this.props.acteurMap[options[i].value]}
         selectedValue.push(acteur);
       }
     }
-    //console.log('event.target.name='+event.target.name);
-    //console.log('event.target.value='+event.target.value);
     this.props.changeActeur(selectedValue);
   }
   render() {
-    const acteurs_list = this.props.acteurMap;
+    const acteurs_list = this.props.acteurs;
     const isLoaded = this.props.isLoaded;
     const label = this.props.label;
     const selected = this.getSelectedFromActeurList(this.props.film.acteurs);
@@ -43,9 +40,9 @@ class Acteurs extends PureComponent {
         <label>{label}
           <select className="custom-select" size="20" multiple defaultValue={selected} onChange={this.handleSelect}>
           {
-            Object.keys(acteurs_list).map((id)=>{
+            acteurs_list.map((acteur)=>{
               return (
-                <option key={acteurs_list[id].id} value={acteurs_list[id]}>{printPersonne(acteurs_list[id].prenom,acteurs_list[id].nom)}</option>
+                <option key={acteur.id} value={acteur.id}>{printPersonne(acteur.prenom,acteur.nom)}</option>
               )
             })
           }

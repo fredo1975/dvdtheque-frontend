@@ -1,0 +1,185 @@
+[33mcommit 05bf8e680ba20c69aa5b2092c268a54465ea17a8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: fredo <fred@autogrif.com>
+Date:   Mon Nov 26 00:20:11 2018 +0100
+
+    change acteurs handling
+
+[33mcommit b8dd3559d3d26a7f6acf863609099a47882ab39d[m
+Author: fredo <fred@autogrif.com>
+Date:   Thu Nov 22 23:55:55 2018 +0100
+
+    improve acteurs select
+
+[33mcommit 5a4564c18f9c8cf524cb7a186163976d1e5f2591[m
+Author: fredo <fred@autogrif.com>
+Date:   Thu Nov 22 23:07:09 2018 +0100
+
+    fix année film and dvd
+
+[33mcommit f310328bcbab7e58e8a0cef94b64857d6ef7ebab[m
+Author: fredo <fred@autogrif.com>
+Date:   Thu Nov 22 00:00:40 2018 +0100
+
+    improve field updates
+
+[33mcommit b66e2f197e83f54f735426bf4e50f567554970ee[m
+Author: fredo <fred@autogrif.com>
+Date:   Mon Nov 19 00:06:03 2018 +0100
+
+    fix realisateur page with redux
+
+[33mcommit 884e7cc61806e7ca5ea61f29e58f69a07ef1bc0f[m
+Author: fredo <fred@autogrif.com>
+Date:   Sun Nov 18 01:24:22 2018 +0100
+
+    fix realisateur page with redux
+
+[33mcommit 4fa9400f6f32efb9f30ccb71a953413c209540d9[m
+Author: fredo <fred@autogrif.com>
+Date:   Sun Nov 18 00:56:49 2018 +0100
+
+    handle realisateur page with redux
+
+[33mcommit 1520d265ae9f4a61c5b132352f4223d2716d596e[m
+Author: fredo <fred@autogrif.com>
+Date:   Sat Nov 17 23:25:17 2018 +0100
+
+    fix edit film page with redux
+
+[33mcommit 6515ed0b5e14df2776237289aac4a922adb26426[m
+Author: fredo <fred@autogrif.com>
+Date:   Sat Nov 17 19:06:27 2018 +0100
+
+    finsih home page
+
+[33mcommit 48f16dbb8ffedf0294c7e1bad0349c7d545ebf5f[m
+Author: fredo <fred@autogrif.com>
+Date:   Sat Nov 17 01:19:54 2018 +0100
+
+    add actions for list film and thank for fetch list film
+
+[33mcommit 4b68103aacdc4bc72dc9d84fd71412fa7fac895d[m
+Author: fredo <fred@autogrif.com>
+Date:   Thu Nov 15 23:59:00 2018 +0100
+
+    add actions for list film and thank for fetch list film
+
+[33mcommit 573ae6a5b7d78a3b6232614d34e33bdbb3e4398a[m
+Author: fredo <fred@autogrif.com>
+Date:   Tue Nov 13 23:28:54 2018 +0100
+
+    enhance redux and router
+
+[33mcommit 330435722a1a72436537f77488738fe652b19d9d[m
+Author: fredo <fred@autogrif.com>
+Date:   Tue Nov 13 22:43:02 2018 +0100
+
+    add redux and router
+
+[33mcommit 93946d0ad6ade81e8f8c8574db1183840d60e0a9[m
+Author: fredo <fred@autogrif.com>
+Date:   Tue Nov 13 22:25:27 2018 +0100
+
+    add post to api
+
+[33mcommit 3c6b0e1d197cc937a76d1f004cf90204a53fcf42[m
+Author: fredo <fred@autogrif.com>
+Date:   Fri Nov 9 22:56:00 2018 +0100
+
+    enhancements
+
+[33mcommit 70061ddd7ccd8eafb65c31641ea6392f94c09823[m
+Author: fredo <fred@autogrif.com>
+Date:   Sun Nov 4 22:22:28 2018 +0100
+
+    add post to api
+
+[33mcommit 04c9fb1390e3b75825e6b3bfb6e329500dbfafd0[m
+Author: fredo <fred@autogrif.com>
+Date:   Sat Nov 3 23:35:20 2018 +0100
+
+    enhancements
+
+[33mcommit d3711706853c82ad0174224672c5d056f771475a[m
+Author: fredo <fred@autogrif.com>
+Date:   Sat Nov 3 01:02:48 2018 +0100
+
+    add acteurs checkboxes
+
+[33mcommit fecece27f573b03f02d972c3e7057a1e133e35ba[m
+Author: fredo <fred@autogrif.com>
+Date:   Thu Nov 1 23:09:50 2018 +0100
+
+    add acteurs checkboxes
+
+[33mcommit abdca51350ccfaca4ff3e80cd349a6953d732894[m
+Author: fredo <fred@autogrif.com>
+Date:   Tue Oct 30 23:38:25 2018 +0100
+
+    add realisateur select
+
+[33mcommit a83ab0a03de46c20c378cf1ea8b8771ed10c87db[m
+Author: fredo <fred@autogrif.com>
+Date:   Mon Oct 29 22:23:08 2018 +0100
+
+    edit film link
+
+[33mcommit e733f27024efe5e08c40ed88b8d40e2a2ad93f98[m
+Author: fredo <fred@autogrif.com>
+Date:   Sun Oct 28 23:44:43 2018 +0100
+
+    edit film link
+
+[33mcommit 2ea610c094c2170883e70536fab248c81684aee0[m
+Author: fredo <fred@autogrif.com>
+Date:   Sun Oct 28 12:22:41 2018 +0100
+
+    edit film link
+
+[33mcommit 1a60458eba6e21a28fb0662e708a66d497f9b470[m
+Author: fredo <fred@autogrif.com>
+Date:   Sat Oct 27 12:06:27 2018 +0200
+
+    edit film link
+
+[33mcommit a1f74bc787a6f548feb0023b77e34aad7fb22ac6[m
+Author: fredo <fred@autogrif.com>
+Date:   Fri Oct 26 00:19:28 2018 +0200
+
+    add route
+
+[33mcommit 6fd9f5d3c576a825d515b090079a90909918f9b1[m
+Author: fredo <fred@autogrif.com>
+Date:   Thu Oct 25 23:42:46 2018 +0200
+
+    add route
+
+[33mcommit a5cd2ef752f1ddef01a6724dd55690be9b7c184b[m
+Author: fredo <fred@autogrif.com>
+Date:   Thu Oct 25 23:17:59 2018 +0200
+
+    add navbar
+
+[33mcommit 7848f6e4c12b0f2788e53afb49f315bd87eb071a[m
+Author: fredo <fred@autogrif.com>
+Date:   Tue Oct 23 21:51:48 2018 +0200
+
+    add navbar
+
+[33mcommit 128e357197c28f975069941881cfa5afa11f2e8e[m
+Author: fredo <fred@autogrif.com>
+Date:   Sun Oct 21 23:36:39 2018 +0200
+
+    add navbar
+
+[33mcommit 51d58dc32937c9de48c3910f09980d5ca5291ca8[m
+Author: fredo <fred@autogrif.com>
+Date:   Sun Oct 21 00:18:50 2018 +0200
+
+    enhance
+
+[33mcommit 1fffdb429db7b6ff252fc28e55379742c200452b[m
+Author: fredo <fred@autogrif.com>
+Date:   Wed Oct 17 23:51:09 2018 +0200
+
+    First commit

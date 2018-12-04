@@ -14,6 +14,8 @@ class Realisateur extends PureComponent {
   render() {
     if(this.props.hasError){
       return <div className="container-fluid text-center"><h3>Error : {this.props.error.message} film</h3></div>;
+    }else if(this.props.film.realisateur===undefined){
+      return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
       return(
         <div className="form-group">

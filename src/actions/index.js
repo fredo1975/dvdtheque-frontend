@@ -56,7 +56,6 @@ export const receivedListActeur  = (result,acteurMap) => ({
   hasError:false,
 });
 
-
 export const errorOccuredWhenRequestListActeur = (error) => ({
   type: types.ERROR_WHEN_REQUEST_LIST_ACTEUR,
   isLoaded: true,
@@ -123,6 +122,25 @@ export function fetchActeurs() {
    }
  )}
 }
+
+/************************************************************/
+
+/************ Film Add *************************************/
+export const requestAddFilm = () => ({
+  type: types.REQUEST_ADD_FILM,
+  hasError:false,
+  isLoaded: false,
+  film:{
+    annee:undefined,
+    titre:'',
+    titreO:'',
+    realisateur : {id:undefined,},
+    realisateurs : [],
+    realisateurSelected:undefined,
+    dvd:{id:undefined,annee:undefined,zone:1},
+    acteurs:[],
+  },
+});
 
 /************************************************************/
 
@@ -199,7 +217,7 @@ export const errorOccuredWhenUpdateFilm = (error) => ({
   hasError:true,
 })
 
-export function postFilm(film){
+export function updateFilm(film){
   return (dispatch) => {
     dispatch(requestUpdateFilm());
     fetch(rest_api_url+'films/byId/'+film.id, {
@@ -213,6 +231,43 @@ export function postFilm(film){
     },
     (error)=>{
       dispatch(errorOccuredWhenUpdateFilm(error));
+    }
+  )}
+}
+
+export const requestSaveFilm = () => ({
+  type: types.REQUEST_SAVE_FILM,
+  isLoaded: false,
+  hasError:false,
+});
+
+export const receivedSaveFilm = () => ({
+  type: types.RECEIVED_SAVE_FILM,
+  isLoaded: true,
+  hasError:false,
+});
+
+export const errorOccuredWhenSaveFilm = (error) => ({
+  type: types.ERROR_WHEN_SAVE_FILM,
+  isLoaded: true,
+  error:error,
+  hasError:true,
+})
+
+export function saveFilm(film){
+  return (dispatch) => {
+    dispatch(requestSaveFilm());
+    fetch(rest_api_url+'film/save', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(film)
+    }).then((result) => {
+       dispatch(receivedSaveFilm());
+    },
+    (error)=>{
+      dispatch(errorOccuredWhenSaveFilm(error));
     }
   )}
 }

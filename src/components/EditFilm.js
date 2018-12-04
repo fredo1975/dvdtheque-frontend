@@ -3,23 +3,27 @@ import Dvd from "./Dvd";
 import Annee from "./Annee";
 import Realisateur from "./Realisateur";
 import Acteurs from "./Acteurs";
-import {printPersonne,rest_api_url} from '../pages' // import our pages
+import {printPersonne} from '../pages' // import our pages
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import {fetchFilmById,postFilm,changeFilmParam} from '../actions'
+import {fetchFilmById,updateFilm,changeFilmParam} from '../actions'
 
 class EditFilm extends Component {
   componentDidMount(){
     this.props.fetchFilmById(this.props.match.params.filmId);
   }
   handleFilmParamChange = (event) => {
+    if(event.target.id==='ripped'){
+      this.props.changeFilmParam(event.target.id,event.target.checked);
+    }else{
       this.props.changeFilmParam(event.target.id,event.target.value);
+    }
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.postFilm(this.props.film);
+    this.props.updateFilm(this.props.film);
   }
 
   render() {
@@ -36,7 +40,7 @@ class EditFilm extends Component {
         <div className="container">
         <form id="principal" onSubmit={this.handleSubmit}>
             <div className="col-md-7 offset-md-2">
-            <h2>Film Edition</h2>
+            <h2>Modification de Film</h2>
               <div className="form-group">
                 <label htmlFor="titre">Titre</label>
                 <input type="text" id="titre" ref="titre" className="form-control" defaultValue={film.titre} onChange={this.handleFilmParamChange}/>
@@ -50,7 +54,10 @@ class EditFilm extends Component {
               <Annee label='Année DVD' obj='dvd'/>
               <Realisateur key={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur'/>
               <Acteurs label='Acteurs'/>
-              <button type="submit" className="btn btn-primary">Submit</button>
+              <div className="checkbox">
+                <label><input type="checkbox" id="ripped" checked={this.props.film.ripped} onChange={this.handleFilmParamChange}/> Ripped</label>
+              </div>
+              <button type="submit" className="btn btn-primary">Modifier</button>
               <div><p>{isUpdated}</p></div>
             </div>
         </form>
@@ -88,7 +95,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchFilmById: filmId => dispatch(fetchFilmById(filmId)),
     changeFilmParam : (fieldName, fieldValue) => dispatch(changeFilmParam(fieldName, fieldValue)),
-    postFilm : (film) => dispatch(postFilm(film)),
+    updateFilm : (film) => dispatch(updateFilm(film)),
   };
 };
 

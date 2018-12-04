@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom'
 
 class NavLink extends Component {
-
   render() {
       return (
         <li className={"nav-item " + (this.props.isActive ? "active": "")}>

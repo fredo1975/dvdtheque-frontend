@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 
 class Annee extends Component {
+  
   getAnneesSelect = () => {
     let anneeList = [];
     var currentTime = new Date();
@@ -19,12 +20,18 @@ class Annee extends Component {
     this.props.changeFilmParam(event.target.name,event.target.value,this.props.obj);
   }
   render() {
+    const {film} = this.props;
     const label = this.props.label;
     const anneesSelect = this.getAnneesSelect();
+    console.log('film.annee='+film.annee);
+    console.log('film.dvd='+film.dvd);
+    for(var v in film.dvd){
+      console.log('v='+v+' film.dvd[v]='+film.dvd[v]);
+    }
     return(
       <div className="form-group">
         <label>{label}</label>
-          <select className="form-control" name="annee" value={this.props.obj==='film'?this.props.film.annee:this.props.film.dvd.annee} onChange={this.handleFilmParamChange}>
+          <select className="form-control" name="annee" value={this.props.obj==='film'?film.annee:film.dvd.annee} onChange={this.handleFilmParamChange}>
           {
             anneesSelect.map((annee)=>{
               return <option key={annee} value={annee}>{annee}</option>

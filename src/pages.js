@@ -1,11 +1,5 @@
 import React from 'react';
 
-export const AddFilm = () => (
-    <div>
-        <h1>Ajouter un Film</h1>
-    </div>
-)
-
 export const UpdatePersonne = () => (
     <div>
         <h1>Modifier une Personne</h1>

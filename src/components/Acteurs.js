@@ -10,7 +10,12 @@ class Acteurs extends PureComponent {
   
   getSelectedFromActeurList = (acteurs) => {
     var selected = selected || [];
-    acteurs.map(acteur=>selected.push(acteur.id))
+    if(acteurs===undefined || acteurs.length===0){
+
+    }else{
+      acteurs.map(acteur=>selected.push(acteur.id))
+    }
+    
     return selected;
   }
   handleSelect = (event) => {
@@ -36,7 +41,6 @@ class Acteurs extends PureComponent {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
       return(
-        <div className="form-group">
         <label>{label}
           <select className="custom-select" size="20" multiple defaultValue={selected} onChange={this.handleSelect}>
           {
@@ -48,7 +52,6 @@ class Acteurs extends PureComponent {
           }
           </select>
           </label>
-          </div>
       )
     }
   }

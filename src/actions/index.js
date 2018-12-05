@@ -134,7 +134,7 @@ export const requestAddFilm = () => ({
     annee:undefined,
     titre:'',
     titreO:'',
-    realisateur : {id:undefined,},
+    realisateur : {},
     realisateurs : [],
     realisateurSelected:undefined,
     dvd:{id:undefined,annee:undefined,zone:1},
@@ -257,7 +257,7 @@ export const errorOccuredWhenSaveFilm = (error) => ({
 export function saveFilm(film){
   return (dispatch) => {
     dispatch(requestSaveFilm());
-    fetch(rest_api_url+'film/save', {
+    fetch(rest_api_url+'films/save', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

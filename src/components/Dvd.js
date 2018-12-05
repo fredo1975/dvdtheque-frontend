@@ -22,7 +22,7 @@ class Dvd extends Component {
     return(
       <div className="form-group">
         <label>Zone DVD</label>
-          <select className="form-control" name="dvd_zone" value={this.props.dvd.zone} onChange={this.handleChange}>
+          <select className="form-control" name="dvd_zone" value={this.props.zone} onChange={this.handleChange}>
           {
             this.zoneList.map((zone)=>{
               return <option key={zone} value={zone}>{zone}</option>

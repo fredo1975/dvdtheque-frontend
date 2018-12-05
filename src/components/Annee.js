@@ -21,6 +21,10 @@ class Annee extends Component {
   }
   render() {
     const {film} = this.props;
+    let {dvd} = {...this.props.film.dvd}
+    if(dvd===undefined){
+      dvd = {annee:undefined}
+    }
     const label = this.props.label;
     const anneesSelect = this.getAnneesSelect();
     console.log('film.annee='+film.annee);
@@ -31,7 +35,7 @@ class Annee extends Component {
     return(
       <div className="form-group">
         <label>{label}</label>
-          <select className="form-control" name="annee" value={this.props.obj==='film'?film.annee:film.dvd.annee} onChange={this.handleFilmParamChange}>
+          <select className="form-control" name="annee" value={this.props.obj==='film'?film.annee:dvd.annee} onChange={this.handleFilmParamChange}>
           {
             anneesSelect.map((annee)=>{
               return <option key={annee} value={annee}>{annee}</option>

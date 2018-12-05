@@ -34,7 +34,7 @@ class EditFilm extends Component {
     }else if (!isLoaded) {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
-      const dvd = film.dvd;
+      const {dvd} = film.dvd;
       const realisateur = film.realisateur;
       return(
         <div className="container">

@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom'
 import {changeRealisateur} from '../actions'
 
 class Realisateur extends PureComponent {
-  
   changeRealisateur = (event) => {
     this.props.changeRealisateur(Number(event.target.value));
   }
@@ -21,6 +20,7 @@ class Realisateur extends PureComponent {
         <div className="form-group">
             <label>{this.props.label}</label>
             <select className="form-control" name='realisateurSelected' value={this.props.film.realisateur.id} onChange={this.changeRealisateur}>
+            <option value={undefined}>Non renseigné</option>
             {
               this.props.realisateurs.map((real)=>{
                 return <option key={real.id} value={real.id}>{printPersonne(real.prenom,real.nom)}</option>
@@ -38,7 +38,6 @@ Realisateur.propTypes = {
 const mapStateToProps = state => {
   return { 
     realisateurs: state.realisateurList.realisateurs,
-    realisateurSelected:state.filmEdit.realisateurSelected,
     isLoaded:state.realisateurList.isLoaded,
     error:state.realisateurList.error,
     hasError: state.realisateurList.hasError,

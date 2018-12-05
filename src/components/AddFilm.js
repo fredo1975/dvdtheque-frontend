@@ -39,6 +39,7 @@ class AddFilm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    
     this.props.saveFilm(this.props.film);
   }
   render() {

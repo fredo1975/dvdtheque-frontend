@@ -71,11 +71,11 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
         }
       case CHANGE_FILM_PARAM:
         if(action.obj==='film' || typeof action.obj === 'undefined'){
-          let changeFilmParamState=state.film;
+          let changeFilmParamState={...state.film};
           changeFilmParamState[action.fieldName]=action.fieldValue;
           state.film = Object.assign({}, state.film, changeFilmParamState)
         }else{
-          let changeDvdParamState=state.film.dvd;
+          let changeDvdParamState={...state.film.dvd};
           changeDvdParamState[action.fieldName]=action.fieldValue;
           state.film.dvd = Object.assign({}, state.film.dvd, changeDvdParamState)
         }
@@ -105,6 +105,7 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
           isLoaded : true,
           isUpdated:false,
           acteurs : action.acteurs,
+          error : action.error,
       }
       default:
         return state

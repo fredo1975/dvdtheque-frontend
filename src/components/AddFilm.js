@@ -58,7 +58,7 @@ class AddFilm extends Component {
       return(
         <div className="container">
         <form id="principal" onSubmit={this.handleSubmit}>
-            <div className="col-md-7 offset-md-2">
+            <div className="col-md-10 offset-md-1">
             <h2>Ajout d'un Film</h2>
               <div className="form-group">
                 <label htmlFor="titre">Titre</label>
@@ -76,8 +76,12 @@ class AddFilm extends Component {
               <div className="checkbox">
                 <label><input type="checkbox" id="ripped" checked={this.props.film.ripped} onChange={this.handleFilmParamChange}/> Ripped</label>
               </div>
-              <button type="submit" className="btn btn-primary" name='save'>Sauver</button> <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
-              <h2>{isUpdated}</h2>
+            </div>
+            <div className="col-md-8 offset-md-4">
+            <button type="submit" className="btn btn-primary" name='save'>Sauver</button> <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
+            </div>
+            <div className="col-md-8 offset-md-2">
+              <h3>{isUpdated}</h3>
             </div>
         </form>
         </div>

@@ -57,8 +57,12 @@ class EditFilm extends Component {
               <div className="checkbox">
                 <label><input type="checkbox" id="ripped" checked={this.props.film.ripped} onChange={this.handleFilmParamChange}/> Ripped</label>
               </div>
+            </div>
+            <div className="col-md-8 offset-md-4">
               <button type="submit" className="btn btn-primary">Modifier</button>
-              <h2>{isUpdated}</h2>
+            </div>
+            <div className="col-md-8 offset-md-2">
+              <h3>{isUpdated}</h3>
             </div>
         </form>
         </div>

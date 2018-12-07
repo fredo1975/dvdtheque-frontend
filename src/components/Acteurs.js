@@ -29,8 +29,12 @@ class Acteurs extends PureComponent {
     }
     this.props.changeActeur(selectedValue);
   }
+  init = () => {
+    //this.props.requestAddFilm();
+  }
   render() {
     const acteurs_list = this.props.acteurs;
+    const new_acteurs_list = []
     const isLoaded = this.props.isLoaded;
     const label = this.props.label;
     const selected = this.getSelectedFromActeurList(this.props.film.acteurs);
@@ -40,17 +44,56 @@ class Acteurs extends PureComponent {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
       return(
-        <label>{label}
-          <select className="custom-select" size="20" multiple defaultValue={selected} onChange={this.handleSelect}>
-          {
-            acteurs_list.map(acteur=>{
-              return (
-                <option key={acteur.id} value={acteur.id}>{printPersonne(acteur.prenom,acteur.nom)}</option>
-              )
-            })
-          }
-          </select>
-          </label>
+        <div className="row">
+
+        <div className="col-md-4">
+          <div className="form-group">
+          <label>{label}
+            <select className="custom-select" size="20" multiple defaultValue={selected} onChange={this.handleSelect}>
+            {
+              acteurs_list.map(acteur=>{
+                return (
+                  <option key={acteur.id} value={acteur.id}>{printPersonne(acteur.prenom,acteur.nom)}</option>
+                )
+              })
+            }
+            </select>
+            </label>
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="form-group">
+            <label>Nouveaux Acteurs
+              <select className="custom-select" size="20" multiple defaultValue={selected} onChange={this.handleSelect}>
+              {
+                new_acteurs_list.map(acteur=>{
+                  return (
+                    <option key={acteur.id} value={acteur.id}>{printPersonne(acteur.prenom,acteur.nom)}</option>
+                  )
+                })
+              }
+              </select>
+              </label>
+              </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="form-group">
+            <p><b>Ajout d'un Acteur</b></p>
+              <div className="form-group">
+                  <label htmlFor="Nom">Nom</label>
+                  <input type="text" id="nom" ref="nom" className="form-control" value={this.props.film.titre} onChange={this.handleFilmParamChange}/>
+              </div>
+              <div className="form-group">
+                <label htmlFor="prenom">Prénom</label>
+                <input type="text" id="prenom" ref="prenom" className="form-control" value={this.props.film.titre} onChange={this.handleFilmParamChange}/>
+              </div>
+            </div>
+            <div className="col-md-8 offset-md-4"><button type="button" className="btn btn-primary" name='addActeur'>Ajouter</button></div>
+          </div>
+
+        </div>
       )
     }
   }

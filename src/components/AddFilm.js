@@ -15,9 +15,8 @@ class AddFilm extends Component {
       annee:undefined,
       titre:'',
       titreO:'',
-      realisateur : {id:undefined,},
+      realisateur : {id:'',},
       realisateurs : [],
-      realisateurSelected:undefined,
       dvd:{id:undefined,annee:undefined,zone:1},
       acteurs:[],
       ripped:false,}
@@ -37,10 +36,21 @@ class AddFilm extends Component {
     }
   }
 
+  init = () => {
+    this.props.requestAddFilm();
+  }
   handleSubmit = (event) => {
     event.preventDefault();
-    
-    this.props.saveFilm(this.props.film);
+    let newFilm = {...this.props.film};
+    newFilm.annee =  Number(newFilm.annee);
+    newFilm.dvd.annee = Number(newFilm.dvd.annee);
+    newFilm.dvd.id=null;
+    let realisateur = {id:Number(newFilm.realisateur.id)}
+    let realisateurs = []
+    realisateurs.push(realisateur);
+    newFilm.realisateurs = Object.assign([],newFilm.realisateurs,realisateurs);
+    let film = Object.assign({},newFilm);
+    this.props.saveFilm(film);
   }
   render() {
     const isUpdated = this.props.isUpdated===true?'Le Film a bien été sauvé':'';
@@ -52,22 +62,22 @@ class AddFilm extends Component {
             <h2>Ajout d'un Film</h2>
               <div className="form-group">
                 <label htmlFor="titre">Titre</label>
-                <input type="text" id="titre" ref="titre" className="form-control" defaultValue={this.props.titre} onChange={this.handleFilmParamChange}/>
+                <input type="text" id="titre" ref="titre" className="form-control" value={this.props.film.titre} onChange={this.handleFilmParamChange}/>
               </div>
               <div className="form-group">
                 <label>Titre Original</label>
-                <input type="text" id="titreO" className="form-control" defaultValue={this.props.titreO==null?'':this.props.film.titreO} onChange={this.handleFilmParamChange}/>
+                <input type="text" id="titreO" className="form-control" value={this.props.film.titreO} onChange={this.handleFilmParamChange}/>
               </div>
               <Annee label='Année' obj='film'/>
-              <Dvd dvd={this.state.film.dvd}/>
+              <Dvd obj='dvd'/>
               <Annee label='Année DVD' obj='dvd'/>
               <Realisateur label='Réalisateur'/>
               <Acteurs label='Acteurs' isLoaded={isLoaded}/>
               <div className="checkbox">
-                <label><input type="checkbox" id="ripped" checked={this.state.film.ripped} onChange={this.handleFilmParamChange}/> Ripped</label>
+                <label><input type="checkbox" id="ripped" checked={this.props.film.ripped} onChange={this.handleFilmParamChange}/> Ripped</label>
               </div>
-              <button type="submit" className="btn btn-primary">Sauver</button>
-              <div><p>{isUpdated}</p></div>
+              <button type="submit" className="btn btn-primary" name='save'>Sauver</button> <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
+              <h2>{isUpdated}</h2>
             </div>
         </form>
         </div>

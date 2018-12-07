@@ -129,16 +129,17 @@ export function fetchActeurs() {
 export const requestAddFilm = () => ({
   type: types.REQUEST_ADD_FILM,
   hasError:false,
-  isLoaded: false,
+  isLoaded: true,
+  isUpdated : false,
   film:{
-    annee:undefined,
+    annee:'',
     titre:'',
     titreO:'',
-    realisateur : {},
+    realisateur : {id:''},
     realisateurs : [],
-    realisateurSelected:undefined,
-    dvd:{id:undefined,annee:undefined,zone:1},
+    dvd:{id:'',annee:'',zone:1},
     acteurs:[],
+    ripped : false,
   },
 });
 
@@ -157,7 +158,6 @@ export const receivedEditFilm = result => ({
   type: types.RECEIVED_EDIT_FILM,
   isLoaded: true,
   film:{result},
-  realisateurSelected:result.realisateur.id,
   hasError:false,
 });
 
@@ -238,12 +238,14 @@ export function updateFilm(film){
 export const requestSaveFilm = () => ({
   type: types.REQUEST_SAVE_FILM,
   isLoaded: false,
+  isUpdated: false,
   hasError:false,
 });
 
 export const receivedSaveFilm = () => ({
   type: types.RECEIVED_SAVE_FILM,
   isLoaded: true,
+  isUpdated: true,
   hasError:false,
 });
 
@@ -251,6 +253,7 @@ export const errorOccuredWhenSaveFilm = (error) => ({
   type: types.ERROR_WHEN_SAVE_FILM,
   isLoaded: true,
   error:error,
+  isUpdated: false,
   hasError:true,
 })
 

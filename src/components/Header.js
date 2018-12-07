@@ -8,7 +8,8 @@ export default class Header extends Component {
       links: [
         {path: "/", text: "Home", isActive: true},
         {path: "/AddFilm", text: "AddFilm", isActive: false},
-        {path: "/AddPersonne", text: "AddPersonne", isActive: false},
+        {path: "/AddActeur", text: "AddActeur", isActive: false},
+        {path: "/AddRealisateur", text: "AddRealisateur", isActive: false},
         {path: "/UpdatePersonne", text: "UpdatePersonne", isActive: false},
       ]
     }

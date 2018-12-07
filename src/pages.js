@@ -6,12 +6,6 @@ export const UpdatePersonne = () => (
     </div>
 )
 
-export const AddPersonne = () => (
-    <div>
-        <h1>Ajouter une Personne</h1>
-    </div>
-)
-
 export const printPersonne = function(prenom,nom) {
   return prenom+' '+nom;
 }

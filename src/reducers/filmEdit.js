@@ -8,6 +8,9 @@ import {ERROR_WHEN_EDIT_FILM,
   CHANGE_FILM_PARAM,
   CHANGE_ACTEUR,
   REQUEST_ADD_FILM,
+  REQUEST_SAVE_FILM,
+  RECEIVED_SAVE_FILM,
+  ERROR_WHEN_SAVE_FILM,
 } from '../constants/ActionTypes'
 import PropTypes from 'prop-types'
 
@@ -50,9 +53,9 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
         let {realisateur:changerealisateurState}=state.film;
         changerealisateurState.id=action.realisateurSelected;
         state.film.realisateur = Object.assign({}, state.film.realisateur, changerealisateurState)
+        state.film = Object.assign({}, state.film)
         return {
           ...state,
-          realisateurSelected:action.realisateurSelected,
           isUpdated:false,
         }
       case CHANGE_ACTEUR:
@@ -60,13 +63,6 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
         return {
           ...state,
           realisateurSelected:action.realisateurSelected,
-          isUpdated:false,
-        }
-      case REQUEST_UPDATE_FILM:
-        return {
-          ...state,
-          isLoaded: false,
-          hasError:false,
           isUpdated:false,
         }
       case CHANGE_FILM_PARAM:
@@ -79,9 +75,17 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
           changeDvdParamState[action.fieldName]=action.fieldValue;
           state.film.dvd = Object.assign({}, state.film.dvd, changeDvdParamState)
         }
+        state.film = Object.assign({}, state.film)
         return {
           ...state,
           isLoaded: true,
+          isUpdated:false,
+        }
+      case REQUEST_UPDATE_FILM:
+        return {
+          ...state,
+          isLoaded: false,
+          hasError:false,
           isUpdated:false,
         }
       case RECEIVED_UPDATE_FILM:
@@ -96,6 +100,28 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
         return {
           isLoaded: true,
           hasError:true,
+          error:action.error,
+          isUpdated:false,
+        }
+      case REQUEST_SAVE_FILM:
+        return {
+          ...state,
+          isLoaded: false,
+          hasError:false,
+          isUpdated:false,
+        }
+      case RECEIVED_SAVE_FILM:
+        return {
+          ...state,
+          isLoaded: true,
+          isUpdated:true,
+          hasError:false,
+        }
+      case ERROR_WHEN_SAVE_FILM:
+        return {
+          isLoaded: true,
+          hasError:true,
+          error:action.error,
           isUpdated:false,
         }
       case REQUEST_ADD_FILM:

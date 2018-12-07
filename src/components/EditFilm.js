@@ -34,7 +34,7 @@ class EditFilm extends Component {
     }else if (!isLoaded) {
       return <div className="container-fluid text-center"><h3>Loading...</h3></div>;
     }else{
-      const {dvd} = film.dvd;
+      const dvd = film.dvd;
       const realisateur = film.realisateur;
       return(
         <div className="container">
@@ -50,7 +50,7 @@ class EditFilm extends Component {
                 <input type="text" id="titreO" className="form-control" defaultValue={film.titreO==null?'':film.titreO} onChange={this.handleFilmParamChange}/>
               </div>
               <Annee label='Année' obj='film'/>
-              <Dvd dvd={dvd}/>
+              <Dvd dvd={dvd} obj='dvd'/>
               <Annee label='Année DVD' obj='dvd'/>
               <Realisateur key={realisateur.id} print={printPersonne(realisateur.prenom,realisateur.nom)} label='Réalisateur'/>
               <Acteurs label='Acteurs'/>
@@ -58,7 +58,7 @@ class EditFilm extends Component {
                 <label><input type="checkbox" id="ripped" checked={this.props.film.ripped} onChange={this.handleFilmParamChange}/> Ripped</label>
               </div>
               <button type="submit" className="btn btn-primary">Modifier</button>
-              <div><p>{isUpdated}</p></div>
+              <h2>{isUpdated}</h2>
             </div>
         </form>
         </div>

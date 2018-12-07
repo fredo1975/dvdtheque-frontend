@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
-
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
+import {changeFilmParam} from '../actions'
 
 class Dvd extends Component {
   constructor(props){
     super(props);
-    this.state = {dvd: {zone:1}};
-    this.handleChange = this.handleChange.bind(this);
     this.zoneList = [];
     for(let i=1;i<4;i++){
       this.zoneList.push(i);
     }
   }
-
-  handleChange(event) {
-      let change = {}
-      change[event.target.name] = event.target.value;
-      this.setState(change);
+  handleFilmParamChange = (event) => {
+    this.props.changeFilmParam(event.target.name,Number(event.target.value),this.props.obj);
   }
+  
   render() {
-    
     return(
       <div className="form-group">
         <label>Zone DVD</label>
-          <select className="form-control" name="dvd_zone" value={this.props.zone} onChange={this.handleChange}>
+          <select className="form-control" name="zone" value={this.props.film.dvd.zone} onChange={this.handleFilmParamChange}>
           {
             this.zoneList.map((zone)=>{
               return <option key={zone} value={zone}>{zone}</option>
@@ -33,5 +30,17 @@ class Dvd extends Component {
     )
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return { 
+    film: state.filmEdit.film, 
+    fieldValue : state.filmEdit.fieldValue,
+    fieldName : state.filmEdit.fieldName,
+  };
+};
 
-export default Dvd;
+const mapDispatchToProps = dispatch => {
+  return {
+    changeFilmParam : (fieldName, fieldValue,obj) => dispatch(changeFilmParam(fieldName,fieldValue,obj)),
+  };
+};
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Dvd))

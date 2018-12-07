@@ -34,7 +34,6 @@ class Acteurs extends PureComponent {
     const isLoaded = this.props.isLoaded;
     const label = this.props.label;
     const selected = this.getSelectedFromActeurList(this.props.film.acteurs);
-    //console.log('print='+print);
     if(this.props.hasError){
       return <div className="container-fluid text-center"><h3>Error : {this.state.error.message} film</h3></div>;
     }else if (!isLoaded) {
@@ -44,7 +43,7 @@ class Acteurs extends PureComponent {
         <label>{label}
           <select className="custom-select" size="20" multiple defaultValue={selected} onChange={this.handleSelect}>
           {
-            acteurs_list.map((acteur)=>{
+            acteurs_list.map(acteur=>{
               return (
                 <option key={acteur.id} value={acteur.id}>{printPersonne(acteur.prenom,acteur.nom)}</option>
               )

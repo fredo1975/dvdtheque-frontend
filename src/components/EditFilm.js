@@ -23,7 +23,7 @@ class EditFilm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.updateFilm(this.props.film);
+    this.props.updateFilm(this.props.film,this.props.newActeursList);
   }
 
   render() {
@@ -39,7 +39,8 @@ class EditFilm extends Component {
       return(
         <div className="container">
         <form id="principal" onSubmit={this.handleSubmit}>
-            <div className="col-md-7 offset-md-2">
+          <div className="row">
+            <div className="col-md-11 offset-md-1">
             <h2>Modification de Film</h2>
               <div className="form-group">
                 <label htmlFor="titre">Titre</label>
@@ -61,8 +62,9 @@ class EditFilm extends Component {
             <div className="col-md-8 offset-md-4">
               <button type="submit" className="btn btn-primary">Modifier</button>
             </div>
-            <div className="col-md-8 offset-md-2">
+            <div className="col-md-3 offset-md-4">
             <strong>{isUpdated}</strong>
+            </div>
             </div>
         </form>
         </div>
@@ -92,6 +94,7 @@ const mapStateToProps = (state, ownProps) => {
     id : ownProps.match.params.filmId,
     fieldValue : state.fieldValue,
     fieldName : state.fieldName,
+    newActeursList : state.filmEdit.newActeursList,
   };
 };
 
@@ -99,7 +102,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchFilmById: filmId => dispatch(fetchFilmById(filmId)),
     changeFilmParam : (fieldName, fieldValue) => dispatch(changeFilmParam(fieldName, fieldValue)),
-    updateFilm : (film) => dispatch(updateFilm(film)),
+    updateFilm : (film,newActeursList) => dispatch(updateFilm(film,newActeursList)),
   };
 };
 

@@ -13,13 +13,14 @@ import filmList from './reducers/filmList'
 import filmEdit from './reducers/filmEdit'
 import realisateurList from './reducers/realisateurList'
 import acteurList from './reducers/acteurList'
+import personneEdit from './reducers/personneEdit'
 
 export const history = createBrowserHistory()
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-  rootReducer(history,filmList,filmEdit,realisateurList,acteurList),
+  rootReducer(history,filmList,filmEdit,realisateurList,acteurList,personneEdit),
   composeEnhancer(
     applyMiddleware(
       routerMiddleware(history),thunk,

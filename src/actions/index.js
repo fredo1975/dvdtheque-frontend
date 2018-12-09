@@ -1,5 +1,6 @@
 import * as types from '../constants/ActionTypes'
 import {rest_api_url} from '../pages'
+import {handleNewActeursList} from '../pages'
 
 /************ Film/Realisateur/Acteur List *************************************/
 export const requestListFilm = () => ({
@@ -163,6 +164,66 @@ export const changeNewActChecked = (fieldName, fieldValue) => ({
 /************************************************************/
 
 
+
+/************ Personne Edit *************************************/
+export const requestPersonneSearch = () => ({
+  type: types.REQUEST_SEARCH_PERSONNE,
+  isLoaded: false,
+  hasError:false,
+  personne:{
+    nom:'',
+    prenom:'',
+  },
+});
+
+export const receivedPersonneSearch = result => ({
+  type: types.RECEIVED_SEARCH_PERSONNE,
+  isLoaded: true,
+  personne:result,
+  hasError:false,
+});
+
+export const errorOccuredWhenRequestPersonneSearch = (error) => ({
+  type: types.ERROR_WHEN_SEARCH_PERSONNE,
+  isLoaded: true,
+  error:error,
+  hasError:true,
+})
+
+export const initSearchPersonneForm = () => ({
+  type: types.INIT_SEARCH_PERSONNE,
+  personne:{
+    nom:'',
+    prenom:'',
+  },
+})
+
+export function search(personne) {
+  return (dispatch) => {
+    console.log(personne);
+   dispatch(requestPersonneSearch(personne));
+   return dispatch(receivedPersonneSearch({nom:'azerty',prenom:'cx'}));
+   
+   /*
+   return fetch(rest_api_url+'/films/byPersonne/'+personne, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+   }).then(result => result.json())
+   .then((result) => {
+      dispatch(receivedPersonneSearch(result));
+   },
+   (error)=>{
+     dispatch(errorOccuredWhenRequestPersonneSearch(error));
+   }
+ )*/
+}
+}
+/************************************************************/
+
+
+
 /************ Film Edit *************************************/
 export const requestEditFilm = (filmId) => ({
   type: types.REQUEST_EDIT_FILM,
@@ -233,10 +294,11 @@ export const requestUpdateFilm = () => ({
   hasError:false,
 });
 
-export const receivedUpdateFilm = () => ({
+export const receivedUpdateFilm = (result) => ({
   type: types.RECEIVED_UPDATE_FILM,
   isLoaded: true,
   hasError:false,
+  postStatus:result,
 });
 
 export const errorOccuredWhenUpdateFilm = (error) => ({
@@ -246,17 +308,27 @@ export const errorOccuredWhenUpdateFilm = (error) => ({
   hasError:true,
 })
 
-export function updateFilm(film){
+export function updateFilm(film,newActeursList){
+  let newList = handleNewActeursList(newActeursList)
+  /*
+  for(let i=0;i<newActeursList.length;i++){
+    if(newActeursList[i].checked===true){
+      newList.push(newActeursList[i]);
+    }
+  }
+  */
+  film.newActeurDtoSet = Object.assign([],film.newActeurDtoSet ,newList)
   return (dispatch) => {
     dispatch(requestUpdateFilm());
-    fetch(rest_api_url+'films/byId/'+film.id, {
+    fetch(rest_api_url+'films/'+film.id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(film)
     }).then((result) => {
-       dispatch(receivedUpdateFilm());
+      console.log(result);
+       dispatch(receivedUpdateFilm(result));
     },
     (error)=>{
       dispatch(errorOccuredWhenUpdateFilm(error));
@@ -289,13 +361,14 @@ export const errorOccuredWhenSaveFilm = (error) => ({
 export function saveFilm(film){
   return (dispatch) => {
     dispatch(requestSaveFilm());
-    fetch(rest_api_url+'films/save', {
-      method: 'PUT',
+    fetch(rest_api_url+'films', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(film)
     }).then((result) => {
+      console.log(result);
        dispatch(receivedSaveFilm());
     },
     (error)=>{

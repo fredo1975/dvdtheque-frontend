@@ -105,8 +105,8 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
           ...state,
           isLoaded: true,
           isUpdated:true,
-          realisateurSelected:action.realisateurSelected,
           hasError:false,
+          postStatus : action.postStatus,
         }
       case ERROR_WHEN_UPDATE_FILM:
         return {

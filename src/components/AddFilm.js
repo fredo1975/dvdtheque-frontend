@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import {requestAddFilm,saveFilm,changeFilmParam,fetchRealisateurs,fetchActeurs} from '../actions'
+import {handleNewActeursList} from '../pages'
 
 class AddFilm extends Component {
   constructor(props){
@@ -42,6 +43,18 @@ class AddFilm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     let newFilm = {...this.props.film};
+    if(newFilm.titre==='' || newFilm.titre===undefined){
+      alert('Il faut un titre au film')
+      return
+    }
+    if(newFilm.annee==='' || newFilm.annee===undefined){
+      alert('Il faut une année au film')
+      return
+    }
+    if(newFilm.realisateur.id==='' || newFilm.realisateur.id===undefined){
+      alert('Il faut un réalisateur au film')
+      return
+    }
     newFilm.annee =  Number(newFilm.annee);
     newFilm.dvd.annee = Number(newFilm.dvd.annee);
     newFilm.dvd.id=null;
@@ -49,6 +62,27 @@ class AddFilm extends Component {
     let realisateurs = []
     realisateurs.push(realisateur);
     newFilm.realisateurs = Object.assign([],newFilm.realisateurs,realisateurs);
+    let newList = handleNewActeursList(this.props.newActeursList)
+    /*
+    let newList = []
+    for(let i=0;i<this.props.newActeursList.length;i++){
+      if(this.props.newActeursList[i].checked===true){
+        newList.push(this.props.newActeursList[i]);
+      }
+    }*/
+    let isActeurExists = true;
+    if(newFilm.acteurs===undefined || newFilm.acteurs.length===0){
+      isActeurExists = false
+    }
+    if(newList===undefined || newList.length===0){
+    }else{
+      isActeurExists = true
+    }
+    if(isActeurExists===false){
+      alert('Il faut au moins un acteur au film')
+      return
+    }
+    newFilm.newActeurDtoSet = Object.assign([],newFilm.newActeurDtoSet ,newList)
     let film = Object.assign({},newFilm);
     this.props.saveFilm(film);
   }
@@ -58,7 +92,8 @@ class AddFilm extends Component {
       return(
         <div className="container">
         <form id="principal" onSubmit={this.handleSubmit}>
-            <div className="col-md-10 offset-md-1">
+        <div className="row">
+            <div className="col-md-10 offset-md-2">
             <h2>Ajout d'un Film</h2>
               <div className="form-group">
                 <label htmlFor="titre">Titre</label>
@@ -78,10 +113,11 @@ class AddFilm extends Component {
               </div>
             </div>
             <div className="col-md-8 offset-md-4">
-            <button type="submit" className="btn btn-primary" name='save'>Sauver</button> <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
+              <button type="submit" className="btn btn-primary" name='save'>Sauver</button> <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
             </div>
-            <div className="col-md-8 offset-md-2">
-            <strong>{isUpdated}</strong>
+            <div className="col-md-3 offset-md-4">
+              <strong>{isUpdated}</strong>
+            </div>
             </div>
         </form>
         </div>
@@ -106,6 +142,7 @@ const mapStateToProps = (state, ownProps) => {
     isUpdated : state.filmEdit.isUpdated,
     fieldValue : state.fieldValue,
     fieldName : state.fieldName,
+    newActeursList : state.filmEdit.newActeursList,
   };
 };
 

@@ -141,7 +141,24 @@ export const requestAddFilm = () => ({
     acteurs:[],
     ripped : false,
   },
+  newActeur : {
+    nom : '',
+    prenom : '',
+    id : 0,
+    checked : true,
+  },
+  newActeursList : [],
 });
+
+export const addActeur = () => ({
+  type: types.REQUEST_ADD_ACTEUR,
+});
+
+export const changeNewActChecked = (fieldName, fieldValue) => ({
+  type: types.CHANGE_ACTEUR_CHECKED_PARAM,
+  fieldName:fieldName,
+  fieldValue:fieldValue,
+})
 
 /************************************************************/
 
@@ -159,6 +176,13 @@ export const receivedEditFilm = result => ({
   isLoaded: true,
   film:{result},
   hasError:false,
+  newActeur : {
+    nom : '',
+    prenom : '',
+    id : 0,
+    checked : true,
+  },
+  newActeursList : [],
 });
 
 export const errorOccuredWhenRequestEditFilm = (error) => ({
@@ -176,6 +200,11 @@ export const changeFilmParam = (fieldName, fieldValue,obj) => ({
   fieldName:fieldName,
   fieldValue:fieldValue,
   obj:obj,
+})
+export const handleNewActeursChange = (fieldName, fieldValue) => ({
+  type: types.CHANGE_ACTEUR_PARAM,
+  fieldName:fieldName,
+  fieldValue:fieldValue,
 })
 export const changeActeur = (selectedValue) => ({
   type: types.CHANGE_ACTEUR,

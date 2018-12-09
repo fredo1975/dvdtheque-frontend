@@ -81,7 +81,7 @@ class AddFilm extends Component {
             <button type="submit" className="btn btn-primary" name='save'>Sauver</button> <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
             </div>
             <div className="col-md-8 offset-md-2">
-              <h3>{isUpdated}</h3>
+            <strong>{isUpdated}</strong>
             </div>
         </form>
         </div>

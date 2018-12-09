@@ -11,6 +11,9 @@ import {ERROR_WHEN_EDIT_FILM,
   REQUEST_SAVE_FILM,
   RECEIVED_SAVE_FILM,
   ERROR_WHEN_SAVE_FILM,
+  CHANGE_ACTEUR_PARAM,
+  REQUEST_ADD_ACTEUR,
+  CHANGE_ACTEUR_CHECKED_PARAM,
 } from '../constants/ActionTypes'
 import PropTypes from 'prop-types'
 
@@ -42,6 +45,8 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
           realisateurSelected:action.realisateurSelected,
           hasError:false,
           isUpdated:false,
+          newActeur : action.newActeur,
+          newActeursList : action.newActeursList,
         }
       case ERROR_WHEN_EDIT_FILM:
         return {
@@ -64,6 +69,13 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
           ...state,
           realisateurSelected:action.realisateurSelected,
           isUpdated:false,
+        }
+      case CHANGE_ACTEUR_PARAM:
+        let changeActeurParamState={...state.newActeur};
+        changeActeurParamState[action.fieldName]=action.fieldValue;
+        state.newActeur = Object.assign({}, state.newActeur, changeActeurParamState)
+        return {
+          ...state,
         }
       case CHANGE_FILM_PARAM:
         if(action.obj==='film' || typeof action.obj === 'undefined'){
@@ -132,7 +144,44 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
           isUpdated:false,
           acteurs : action.acteurs,
           error : action.error,
+          newActeur : action.newActeur,
+          newActeursList : action.newActeursList,
       }
+      case REQUEST_ADD_ACTEUR:
+        let newActList = []
+        let id = state.newActeur.id+1
+        let act = state.newActeur
+        act.id = id
+        newActList = Object.assign(newActList, state.newActeursList)
+        newActList.push(act)
+        state.newActeursList = Object.assign([], newActList)
+        return {
+          ...state,
+          hasError:false,
+          isLoaded : true,
+          isUpdated:false,
+          acteurs : action.acteurs,
+          error : action.error,
+          newActeur : {
+            nom : '', 
+            prenom : '', 
+            id : id, 
+            checked : true,
+          },
+      }
+      case CHANGE_ACTEUR_CHECKED_PARAM:
+        let changeActeurCheckedParamState=state.newActeursList;
+        for(let i=0;i<changeActeurCheckedParamState.length;i++){
+          if(changeActeurCheckedParamState[i].id===Number(action.fieldName)){
+            changeActeurCheckedParamState[i].checked=!changeActeurCheckedParamState[i].checked
+          }
+        }
+        state.newActeursList = Object.assign([], changeActeurCheckedParamState)
+        return {
+          ...state,
+          isLoaded: true,
+          isUpdated:false,
+        }
       default:
         return state
     }

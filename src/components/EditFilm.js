@@ -62,7 +62,7 @@ class EditFilm extends Component {
               <button type="submit" className="btn btn-primary">Modifier</button>
             </div>
             <div className="col-md-8 offset-md-2">
-              <h3>{isUpdated}</h3>
+            <strong>{isUpdated}</strong>
             </div>
         </form>
         </div>

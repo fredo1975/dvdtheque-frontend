@@ -170,17 +170,13 @@ export const requestPersonneSearch = () => ({
   type: types.REQUEST_SEARCH_PERSONNE,
   isLoaded: false,
   hasError:false,
-  personne:{
-    nom:'',
-    prenom:'',
-  },
 });
 
-export const receivedPersonneSearch = result => ({
+export const receivedPersonneSearch = (result) => ({
   type: types.RECEIVED_SEARCH_PERSONNE,
   isLoaded: true,
-  personne:result,
   hasError:false,
+  personneSelected:result,
 });
 
 export const errorOccuredWhenRequestPersonneSearch = (error) => ({
@@ -192,32 +188,86 @@ export const errorOccuredWhenRequestPersonneSearch = (error) => ({
 
 export const initSearchPersonneForm = () => ({
   type: types.INIT_SEARCH_PERSONNE,
-  personne:{
+  personneSelected:{
+    id:'',
     nom:'',
     prenom:'',
   },
 })
 
-export function search(personne) {
+export const changePersonneParam = (fieldName,fieldValue) =>({
+  type: types.CHANGE_PERSONNE_PARAM,
+  fieldName:fieldName,
+  fieldValue:fieldValue,
+})
+
+export const requestFetchAllPersonne = () => ({
+  type: types.REQUEST_ALL_PERSONNE,
+  isLoaded: false,
+  hasError:false,
+  personneMap:{},
+});
+
+export const receivedFetchAllPersonne = (result,personneMap) => ({
+  type: types.RECEIVED_ALL_PERSONNE,
+  isLoaded: true,
+  allPersonne:result,
+  personneMap:personneMap,
+  personneSelected:{
+    id:'',
+  },
+  hasError:false,
+});
+
+export const errorOccuredWhenFetchAllPersonne = (error) => ({
+  type: types.ERROR_WHEN_REQUEST_ALL_PERSONNE,
+  isLoaded: true,
+  error:error,
+  hasError:true,
+})
+
+export const selectPersonne = (selected) => ({
+  type: types.REQUEST_SELECT_PERSONNE,
+  isLoaded: true,
+  hasError:true,
+  personneSelected:selected,
+})
+
+export function fetchAllPersonne(){
   return (dispatch) => {
-    console.log(personne);
-   dispatch(requestPersonneSearch(personne));
-   return dispatch(receivedPersonneSearch({nom:'azerty',prenom:'cx'}));
-   
-   /*
-   return fetch(rest_api_url+'/films/byPersonne/'+personne, {
+    dispatch(requestFetchAllPersonne());
+   return fetch(rest_api_url+'/personnes', {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
     }
    }).then(result => result.json())
    .then((result) => {
+      dispatch(receivedFetchAllPersonne(result,buildIndexListActeur(result)));
+   },
+   (error)=>{
+     dispatch(errorOccuredWhenFetchAllPersonne(error));
+   }
+ )
+  }
+}
+export function save(personneSelected) {
+  let personne = {dateN:'',pays:'',...personneSelected,}
+  return (dispatch) => {
+    dispatch(requestPersonneSearch());
+   return fetch(rest_api_url+'/personnes/byId/'+personne.id, {
+    method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(personne)
+   }).then((result) => {
       dispatch(receivedPersonneSearch(result));
    },
    (error)=>{
      dispatch(errorOccuredWhenRequestPersonneSearch(error));
    }
- )*/
+ )
 }
 }
 /************************************************************/

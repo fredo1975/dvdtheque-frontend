@@ -29,7 +29,6 @@ class Acteurs extends PureComponent {
   init = () => {
     //this.props.requestAddFilm();
   }
-
   addActeur = () => {
     this.props.addActeur();
   }
@@ -39,7 +38,6 @@ class Acteurs extends PureComponent {
   handleNewActeursChange = (event) => {
     this.props.handleNewActeursChange(event.target.id,event.target.value);
   }
-
   render() {
     const isLoaded = this.props.isLoaded;
     const label = this.props.label;
@@ -52,7 +50,6 @@ class Acteurs extends PureComponent {
       const acteurs_list = this.props.acteurs
       return(
         <div className="row">
-
         <div className="col-md-4">
           <div className="form-group">
           <label>{label}
@@ -68,7 +65,6 @@ class Acteurs extends PureComponent {
             </label>
             </div>
           </div>
-
           <div className="col-md-4">
             <div className="form-group">
             <label>Nouveaux Acteurs{
@@ -83,7 +79,6 @@ class Acteurs extends PureComponent {
             </label>
               </div>
           </div>
-
           <div className="col-md-4">
             <div className="form-group">
             <p><b>Ajout d'un Acteur</b></p>

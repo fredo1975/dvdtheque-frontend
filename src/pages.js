@@ -1,4 +1,3 @@
-import React from 'react';
 
 export const printPersonne = function(prenom,nom) {
   return prenom+' '+nom;

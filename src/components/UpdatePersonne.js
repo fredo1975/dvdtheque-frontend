@@ -1,39 +1,62 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import {search,initSearchPersonneForm} from '../actions'
+import {save,initSearchPersonneForm,changePersonneParam,fetchAllPersonne,selectPersonne} from '../actions'
+import {printPersonne} from '../pages' // import our pages
 
 class UpdatePersonne extends Component {
+    componentDidMount(){
+        this.props.fetchAllPersonne();
+      }
     handlePersonneParamChange = (event) => {
         this.props.changePersonneParam(event.target.id,event.target.value);
     }
     init = () => {
         this.props.initSearchPersonneForm();
     }
-    search = () => {
-        this.props.search(this.props.personne);
+    
+    save = () => {
+        this.props.save(this.props.personneSelected);
     }
     handleSubmit = (event) => {
         event.preventDefault();
     }
+    selectPersonne = (event) => {
+        let personne = this.props.personneMap[event.target.value]
+        this.props.selectPersonne(personne);
+    }
     render() {
         const isUpdated=false
+        const {error,hasError,personneSelected,allPersonne} = this.props
+        const errorRender=hasError?<div className="container-fluid text-center"><h3>Error : {error.message} personne</h3></div>:''
+        
         return(
             <div className="container">
             <form id="principal" onSubmit={this.handleSubmit}>
             <div className="col-md-7 offset-md-2">
             <h2>Modification d'une personne</h2>
                 <div className="form-group">
+                    <label>Toutes les personnes</label>
+                    <select className="form-control" name='personneSelected' value={personneSelected.id} onChange={this.selectPersonne}>
+                    <option value={undefined}>Non renseigné</option>
+                    {
+                    allPersonne.map(p=>{
+                        return <option key={p.id} value={p.id}>{printPersonne(p.prenom,p.nom)}</option>
+                    })
+                    }
+                    </select>
+                </div>
+                <div className="form-group">
                     <label htmlFor="Nom">Nom</label>
-                    <input type="text" id="nom" ref="nom" className="form-control" value={this.props.personne.nom} />
+                    <input type="text" id="nom" className="form-control" value={personneSelected.nom} onChange={this.handlePersonneParamChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="prenom">Prénom</label>
-                    <input type="text" id="prenom" ref="prenom" className="form-control" value={this.props.personne.prenom} />
+                    <input type="text" id="prenom" className="form-control" value={personneSelected.prenom} onChange={this.handlePersonneParamChange}/>
                 </div>
-                <button type="submit" className="btn btn-primary" name='save'>Sauver</button>&nbsp;
-                <button type="button" className="btn btn-primary" name='search' onClick={this.search}>Chercher</button>&nbsp;
+                <button type="submit" className="btn btn-primary" name='save' onClick={this.save}>Sauver</button>&nbsp;
                 <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
+                <h2> {errorRender}</h2>
             <h2>{isUpdated}</h2>
             </div>
             </form>
@@ -44,17 +67,23 @@ class UpdatePersonne extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return { 
-      personne : state.personneEdit.personne,
+      allPersonne : state.personneEdit.allPersonne,
       isUpdated : state.personneEdit.isUpdated,
       fieldValue : state.fieldValue,
       fieldName : state.fieldName,
+      error : state.error,
+      personneSelected : state.personneEdit.personneSelected,
+      personneMap : state.personneEdit.personneMap,
     };
   };
   
   const mapDispatchToProps = (dispatch) => {
     return {
-        search : (personne) => dispatch(search(personne)),
+        save : (personne) => dispatch(save(personne)),
         initSearchPersonneForm : () => dispatch(initSearchPersonneForm()),
+        changePersonneParam : (fieldName,fieldValue) => dispatch(changePersonneParam(fieldName,fieldValue)),
+        fetchAllPersonne : () => dispatch(fetchAllPersonne()),
+        selectPersonne : (personne) => dispatch(selectPersonne(personne)),
     };
   };
   

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import {save,initSearchPersonneForm,changePersonneParam,fetchAllPersonne,selectPersonne} from '../actions'
+import {update,initSearchPersonneForm,changePersonneParam,fetchAllPersonne,selectPersonne} from '../actions'
 import {printPersonne} from '../pages' // import our pages
 
 class UpdatePersonne extends Component {
     componentDidMount(){
         this.props.fetchAllPersonne();
-      }
+    }
     handlePersonneParamChange = (event) => {
         this.props.changePersonneParam(event.target.id,event.target.value);
     }
@@ -15,8 +15,8 @@ class UpdatePersonne extends Component {
         this.props.initSearchPersonneForm();
     }
     
-    save = () => {
-        this.props.save(this.props.personneSelected);
+    update = () => {
+        this.props.update(this.props.personneSelected);
     }
     handleSubmit = (event) => {
         event.preventDefault();
@@ -26,10 +26,9 @@ class UpdatePersonne extends Component {
         this.props.selectPersonne(personne);
     }
     render() {
-        const isUpdated=false
-        const {error,hasError,personneSelected,allPersonne} = this.props
+        const {error,hasError,personneSelected,allPersonne,isUpdated} = this.props
         const errorRender=hasError?<div className="container-fluid text-center"><h3>Error : {error.message} personne</h3></div>:''
-        
+        const isUpdateRendered = isUpdated?'La personne a bien été modifiée':''
         return(
             <div className="container">
             <form id="principal" onSubmit={this.handleSubmit}>
@@ -47,17 +46,19 @@ class UpdatePersonne extends Component {
                     </select>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="Nom">Nom</label>
-                    <input type="text" id="nom" className="form-control" value={personneSelected.nom} onChange={this.handlePersonneParamChange}/>
-                </div>
-                <div className="form-group">
                     <label htmlFor="prenom">Prénom</label>
                     <input type="text" id="prenom" className="form-control" value={personneSelected.prenom} onChange={this.handlePersonneParamChange}/>
                 </div>
-                <button type="submit" className="btn btn-primary" name='save' onClick={this.save}>Sauver</button>&nbsp;
+                <div className="form-group">
+                    <label htmlFor="Nom">Nom</label>
+                    <input type="text" id="nom" className="form-control" value={personneSelected.nom} onChange={this.handlePersonneParamChange}/>
+                </div>
+                <button type="submit" className="btn btn-primary" name='save' onClick={this.update}>Sauver</button>&nbsp;
                 <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
                 <h2> {errorRender}</h2>
-            <h2>{isUpdated}</h2>
+                <div className="col-md-6 offset-md-4">
+                <strong>{isUpdateRendered}</strong>
+                </div>
             </div>
             </form>
             </div>
@@ -79,7 +80,7 @@ const mapStateToProps = (state, ownProps) => {
   
   const mapDispatchToProps = (dispatch) => {
     return {
-        save : (personne) => dispatch(save(personne)),
+        update : (personne) => dispatch(update(personne)),
         initSearchPersonneForm : () => dispatch(initSearchPersonneForm()),
         changePersonneParam : (fieldName,fieldValue) => dispatch(changePersonneParam(fieldName,fieldValue)),
         fetchAllPersonne : () => dispatch(fetchAllPersonne()),

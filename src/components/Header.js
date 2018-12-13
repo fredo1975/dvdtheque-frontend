@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import NavLink from "./NavLink";
+import logo from '../img/cd_dvd.png'
 
 export default class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       links: [
-        {path: "/", text: "Home", isActive: true},
+        {path: "/", text: "Liste des Films", isActive: true},
         {path: "/AddFilm", text: "AddFilm", isActive: false},
         {path: "/UpdatePersonne", text: "UpdatePersonne", isActive: false},
       ]
@@ -23,7 +24,7 @@ export default class Header extends Component {
       const Header = () => (
         <header>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a className="navbar-brand" href="_blank">Navbar</a>
+          <a className="navbar-brand" href=""><img src={logo} alt="DVDTHEQUE" width="45" /></a>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
           {this.state.links.map((link, i) =>

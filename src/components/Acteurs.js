@@ -100,6 +100,12 @@ class Acteurs extends PureComponent {
 }
 Acteurs.propTypes = {
   acteurs : PropTypes.array,
+  newActeur : PropTypes.object,
+  newActeursList : PropTypes.array,
+  isLoaded : PropTypes.bool,
+  hasError : PropTypes.bool,
+  film : PropTypes.object,
+  acteurMap : PropTypes.object,
 }
 const mapDispatchToProps = dispatch => {
   return {

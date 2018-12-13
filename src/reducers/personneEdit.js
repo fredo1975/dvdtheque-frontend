@@ -1,6 +1,6 @@
-import {REQUEST_SEARCH_PERSONNE, 
-  RECEIVED_SEARCH_PERSONNE,
-  ERROR_WHEN_SEARCH_PERSONNE,
+import {REQUEST_UPDATE_PERSONNE, 
+  RECEIVED_UPDATE_PERSONNE,
+  ERROR_WHEN_UPDATE_PERSONNE,
   INIT_SEARCH_PERSONNE,
   CHANGE_PERSONNE_PARAM,
   ERROR_WHEN_REQUEST_ALL_PERSONNE,
@@ -12,29 +12,39 @@ import PropTypes from 'prop-types'
 
 const personneEdit = (state = {error:{},isLoaded:false,isUpdated:false,hasError:false,personneSelected:{nom:'',prenom:'',id:''},allPersonne:[{nom:'',prenom:'',id:''}]},action) => {
   switch (action.type) {
-    case REQUEST_SEARCH_PERSONNE:
+    case REQUEST_UPDATE_PERSONNE:
       return {
         ...state,
         isLoaded: false,
         hasError:false,
+        isUpdated:false,
       }
-    case RECEIVED_SEARCH_PERSONNE:
+    case RECEIVED_UPDATE_PERSONNE:
+      state.personneMap[state.personneSelected.id] = action.personneSelected
+      for(let i=0;i<state.allPersonne.length;i++){
+        if(state.allPersonne[i].id===state.personneSelected.id){
+          state.allPersonne[i]=action.personneSelected
+        }
+      }
       return {
         ...state,
+        personneSelected:action.personneSelected,
         isLoaded: true,
         hasError:false,
         isUpdated:true,
       }
-    case ERROR_WHEN_SEARCH_PERSONNE:
+    case ERROR_WHEN_UPDATE_PERSONNE:
       return {
         ...state,
         isLoaded: true,
         hasError:true,
+        isUpdated:false,
         error:action.error,
       }
     case INIT_SEARCH_PERSONNE:
       return {
         ...state,
+        isUpdated:false,
         personneSelected:action.personneSelected,
       }
     case CHANGE_PERSONNE_PARAM:
@@ -49,6 +59,7 @@ const personneEdit = (state = {error:{},isLoaded:false,isUpdated:false,hasError:
         ...state,
         isLoaded: false,
         hasError:false,
+        isUpdated:false,
         personneSelected:{
           id:'',
           nom : '',
@@ -64,6 +75,8 @@ const personneEdit = (state = {error:{},isLoaded:false,isUpdated:false,hasError:
         hasError:false,
         personneSelected:{
           id:'',
+          nom : '',
+          prenom : '',
         },
       }
     case ERROR_WHEN_REQUEST_ALL_PERSONNE:
@@ -73,6 +86,8 @@ const personneEdit = (state = {error:{},isLoaded:false,isUpdated:false,hasError:
         error:action.error,
         personneSelected:{
           id:'',
+          nom : '',
+          prenom : '',
         },
       }
     case REQUEST_SELECT_PERSONNE:

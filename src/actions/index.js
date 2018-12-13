@@ -166,21 +166,21 @@ export const changeNewActChecked = (fieldName, fieldValue) => ({
 
 
 /************ Personne Edit *************************************/
-export const requestPersonneSearch = () => ({
-  type: types.REQUEST_SEARCH_PERSONNE,
+export const requestUpdatePersonne = () => ({
+  type: types.REQUEST_UPDATE_PERSONNE,
   isLoaded: false,
   hasError:false,
 });
 
-export const receivedPersonneSearch = (result) => ({
-  type: types.RECEIVED_SEARCH_PERSONNE,
+export const receivedUpdatePersonne = (personneSelected) => ({
+  type: types.RECEIVED_UPDATE_PERSONNE,
   isLoaded: true,
   hasError:false,
-  personneSelected:result,
+  personneSelected:personneSelected,
 });
 
-export const errorOccuredWhenRequestPersonneSearch = (error) => ({
-  type: types.ERROR_WHEN_SEARCH_PERSONNE,
+export const errorOccuredWhenRequestUpdatePersonne = (error) => ({
+  type: types.ERROR_WHEN_UPDATE_PERSONNE,
   isLoaded: true,
   error:error,
   hasError:true,
@@ -251,21 +251,21 @@ export function fetchAllPersonne(){
  )
   }
 }
-export function save(personneSelected) {
-  let personne = {dateN:'',pays:'',...personneSelected,}
+export function update(personneSelected) {
+  let personne = {id:personneSelected.id,nom:personneSelected.nom.toUpperCase(),prenom:personneSelected.prenom.toUpperCase()}
   return (dispatch) => {
-    dispatch(requestPersonneSearch());
-   return fetch(rest_api_url+'/personnes/byId/'+personne.id, {
+    dispatch(requestUpdatePersonne());
+   return fetch(rest_api_url+'personnes/byId/'+personne.id, {
     method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(personne)
    }).then((result) => {
-      dispatch(receivedPersonneSearch(result));
+      dispatch(receivedUpdatePersonne(personne));
    },
    (error)=>{
-     dispatch(errorOccuredWhenRequestPersonneSearch(error));
+     dispatch(errorOccuredWhenRequestUpdatePersonne(error));
    }
  )
 }
@@ -367,7 +367,7 @@ export function updateFilm(film,newActeursList){
     }
   }
   */
-  film.newActeurDtoSet = Object.assign([],film.newActeurDtoSet ,newList)
+  film.newActeurDtoSet = Object.assign([],film.newActeurDtoSet,newList)
   return (dispatch) => {
     dispatch(requestUpdateFilm());
     fetch(rest_api_url+'films/'+film.id, {
@@ -377,7 +377,6 @@ export function updateFilm(film,newActeursList){
       },
       body: JSON.stringify(film)
     }).then((result) => {
-      console.log(result);
        dispatch(receivedUpdateFilm(result));
     },
     (error)=>{

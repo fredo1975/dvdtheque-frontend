@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const FilmList = (props) => (
   <div>
-  <h3>Film liste</h3>
+  <h3>Liste des Films </h3>
   Taille : {props.films.length}
   <br/>
   <table className="table table-bordered table-striped">

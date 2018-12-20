@@ -1,9 +1,12 @@
 import React from "react";
 import FilmRow from "./FilmRow";
+import Filter from "../containers/Filter";
 import PropTypes from 'prop-types'
 
 const FilmList = (props) => (
-  <div>
+  <div className="container-fluid">
+    <Filter/>
+    <br/>
   <h3>Liste des Films </h3>
   Taille : {props.films.length}
   <br/>
@@ -27,6 +30,7 @@ const FilmList = (props) => (
     }
     </tbody>
   </table>
+  
   </div>
 )
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FilmList from "./FilmList";
+import FilmList from "../components/FilmList";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import {fetchFilms,fetchRealisateurs,fetchActeurs} from '../actions'
@@ -64,7 +64,7 @@ const mapStateToProps = state => {
     hasFetchListRealisateurError:state.filmList.hasError,
     acteurListLoaded:state.acteurList.isLoaded,
     acteurListFetchError:state.acteurList.error,
-    hasFetchListActeurError:state.filmList.hasError,
+    hasFetchListActeurError:state.acteurList.hasError,
   };
 };
 

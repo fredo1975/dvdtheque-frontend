@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Dvd from "./Dvd";
 import Annee from "./Annee";
 import Realisateur from "./Realisateur";
-import Acteurs from "./Acteurs";
+import Acteurs from "../containers/Acteurs";
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'

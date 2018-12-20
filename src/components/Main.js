@@ -12,8 +12,9 @@ export default class Main extends Component {
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/AddFilm' component={AddFilm}/>
+            <Route path='/UpdatePersonne/:realId' component={UpdatePersonne}/>
             <Route path='/UpdatePersonne' component={UpdatePersonne}/>
-            <Route path="/editFilm/:filmId" component={EditFilm} />
+            <Route path="/EditFilm/:filmId" component={EditFilm} />
           </Switch>
         </main>
       )

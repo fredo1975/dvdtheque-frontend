@@ -55,29 +55,40 @@ const personneEdit = (state = {error:{},isLoaded:false,isUpdated:false,hasError:
         ...state,
       }
     case REQUEST_ALL_PERSONNE:
+    let personneSelected
+      if(action.personneSelected.id!==undefined){
+        personneSelected=action.personneSelected
+      }else{
+        personneSelected={
+          id:'',
+          nom : '',
+          prenom : '',
+        }
+      }
       return {
         ...state,
         isLoaded: false,
         hasError:false,
         isUpdated:false,
-        personneSelected:{
-          id:'',
-          nom : '',
-          prenom : '',
-        },
+        personneSelected:personneSelected,
       }
     case RECEIVED_ALL_PERSONNE:
+      let personneSelectedTemp
+      if(state.personneSelected.id!==''){
+        personneSelectedTemp = action.personneMap[state.personneSelected.id]
+      }else{
+        personneSelectedTemp = {
+          id:'',
+          nom : '',
+          prenom : '',}
+      }
       return {
         ...state,
         isLoaded: true,
         allPersonne:action.allPersonne,
         personneMap:action.personneMap,
         hasError:false,
-        personneSelected:{
-          id:'',
-          nom : '',
-          prenom : '',
-        },
+        personneSelected:personneSelectedTemp,
       }
     case ERROR_WHEN_REQUEST_ALL_PERSONNE:
       return {

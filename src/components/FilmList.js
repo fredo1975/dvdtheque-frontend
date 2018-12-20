@@ -21,7 +21,7 @@ const FilmList = (props) => (
     {
       props.films.map((film) => {
         return (
-          <FilmRow key={film.id} id={film.id} titre={film.titre} realisateur={film.printRealisateur} acteurs={film.printActeurs} annee={film.annee} ripped={film.ripped===true?"oui":"non"}/>
+          <FilmRow key={film.id} id={film.id} titre={film.titre} realisateur={film.printRealisateur} realisateurId={film.realisateur.id} acteurs={film.printActeurs} annee={film.annee} ripped={film.ripped===true?"oui":"non"}/>
         );
       })
     }

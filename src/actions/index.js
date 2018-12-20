@@ -140,7 +140,7 @@ export const requestAddFilm = () => ({
     realisateurs : [],
     dvd:{id:'',annee:'',zone:1},
     acteurs:[],
-    ripped : false,
+    ripped : '',
   },
   newActeur : {
     nom : '',
@@ -201,11 +201,14 @@ export const changePersonneParam = (fieldName,fieldValue) =>({
   fieldValue:fieldValue,
 })
 
-export const requestFetchAllPersonne = () => ({
+export const requestFetchAllPersonne = (personneId) => ({
   type: types.REQUEST_ALL_PERSONNE,
   isLoaded: false,
   hasError:false,
   personneMap:{},
+  personneSelected:{
+    id:personneId,
+  },
 });
 
 export const receivedFetchAllPersonne = (result,personneMap) => ({
@@ -213,9 +216,6 @@ export const receivedFetchAllPersonne = (result,personneMap) => ({
   isLoaded: true,
   allPersonne:result,
   personneMap:personneMap,
-  personneSelected:{
-    id:'',
-  },
   hasError:false,
 });
 
@@ -233,9 +233,9 @@ export const selectPersonne = (selected) => ({
   personneSelected:selected,
 })
 
-export function fetchAllPersonne(){
+export function fetchAllPersonne(realId){
   return (dispatch) => {
-    dispatch(requestFetchAllPersonne());
+    dispatch(requestFetchAllPersonne(realId));
    return fetch(rest_api_url+'/personnes', {
     method: 'GET',
     headers: {

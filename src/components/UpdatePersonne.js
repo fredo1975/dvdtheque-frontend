@@ -6,7 +6,7 @@ import {printPersonne} from '../pages' // import our pages
 
 class UpdatePersonne extends Component {
     componentDidMount(){
-        this.props.fetchAllPersonne();
+        this.props.fetchAllPersonne(this.props.match.params.realId);
     }
     handlePersonneParamChange = (event) => {
         this.props.changePersonneParam(event.target.id,event.target.value);
@@ -16,7 +16,15 @@ class UpdatePersonne extends Component {
     }
     
     update = () => {
-        this.props.update(this.props.personneSelected);
+        if(this.props.personneSelected.id===''){
+            alert('Il faut séléctionner une personne');
+        }else{
+            if(this.props.personneSelected.nom===''){
+                alert('Il faut donner un nom à la personne');
+            }else{
+                this.props.update(this.props.personneSelected);
+            }
+        }
     }
     handleSubmit = (event) => {
         event.preventDefault();
@@ -83,7 +91,7 @@ const mapStateToProps = (state, ownProps) => {
         update : (personne) => dispatch(update(personne)),
         initSearchPersonneForm : () => dispatch(initSearchPersonneForm()),
         changePersonneParam : (fieldName,fieldValue) => dispatch(changePersonneParam(fieldName,fieldValue)),
-        fetchAllPersonne : () => dispatch(fetchAllPersonne()),
+        fetchAllPersonne : (realId) => dispatch(fetchAllPersonne(realId)),
         selectPersonne : (personne) => dispatch(selectPersonne(personne)),
     };
   };

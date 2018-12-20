@@ -18,17 +18,31 @@ import {ERROR_WHEN_EDIT_FILM,
 import PropTypes from 'prop-types'
 
 
-const filmEdit = (state = {error:{},isLoaded:false,film:{
-  id : undefined,
-  annee:undefined,
-  titre:'',
-  titreO:'',
-  realisateur : {id:undefined,},
-  realisateurs : [],
-  realisateurSelected:undefined,
-  dvd:{id:undefined,annee:undefined,zone:1},
-  acteurs:[],
-},hasError:false,},action) => {
+const filmEdit = (state = {
+  error:{},
+  isLoaded:false,
+  film:{
+    id : undefined,
+    annee:'',
+    titre:'',
+    titreO:'',
+    ripped:'',
+    realisateur : {id:undefined,},
+    realisateurs : [],
+    realisateurSelected:undefined,
+    dvd:{id:'',annee:'',zone:1},
+    acteurs:[],
+  },
+  newActeursList:[],
+  hasError:false,
+  newActeur : {
+    nom : '', 
+    prenom : '', 
+    id : '', 
+    checked : true,
+  },
+},action) => {
+  let film
     switch (action.type) {
       case REQUEST_EDIT_FILM:
         return {
@@ -38,10 +52,14 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
           isUpdated:false,
         }
       case RECEIVED_EDIT_FILM:
+        film = action.film.result
+        if(film.dvd.annee===null){
+          film.dvd.annee = ''
+        }
+        state.film = Object.assign({}, state.film, film)
         return {
           ...state,
           isLoaded: true,
-          film: action.film.result,
           realisateurSelected:action.realisateurSelected,
           hasError:false,
           isUpdated:false,
@@ -137,8 +155,14 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
           isUpdated:false,
         }
       case REQUEST_ADD_FILM:
+        film = action.film
+        if(film.titreO===null||film.titreO===undefined){
+          film.titreO=''
+        }
+        film = Object.assign({},film)
         return {
-          film : action.film,
+          ...state,
+          film:film,
           hasError:false,
           isLoaded : true,
           isUpdated:false,
@@ -195,5 +219,8 @@ const filmEdit = (state = {error:{},isLoaded:false,film:{
     error : PropTypes.object,
     state : PropTypes.object,
     film : PropTypes.object,
+    acteurs : PropTypes.array,
+    newActeur : PropTypes.object,
+    newActeursList : PropTypes.array,
   }
   export default filmEdit

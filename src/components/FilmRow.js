@@ -12,7 +12,7 @@ export default class FilmRow extends React.PureComponent{
           <Link to={'editFilm/'+Number(id)}>{titre}</Link>
         </td>
         <td>
-          <Link to={'UpdatePersonne/'+Number(realisateur.id)}>{realisateur}</Link>
+          <Link to={'UpdatePersonne/'+Number(this.props.realisateurId)}>{realisateur}</Link>
         </td>
         <td>
           {acteurs}

@@ -10,20 +10,6 @@ import {requestAddFilm,saveFilm,changeFilmParam,fetchRealisateurs,fetchActeurs} 
 import {handleNewActeursList} from '../pages'
 
 class AddFilm extends Component {
-  constructor(props){
-    super(props);
-    this.state = {film:{
-      annee:undefined,
-      titre:'',
-      titreO:'',
-      realisateur : {id:'',},
-      realisateurs : [],
-      dvd:{id:undefined,annee:undefined,zone:1},
-      acteurs:[],
-      ripped:false,}
-    }
-  }
-
   componentDidMount(){
     this.props.requestAddFilm();
     this.props.fetchRealisateurs();
@@ -101,7 +87,7 @@ class AddFilm extends Component {
               </div>
               <div className="form-group">
                 <label>Titre Original</label>
-                <input type="text" id="titreO" className="form-control" value={this.props.film.titreO} onChange={this.handleFilmParamChange}/>
+                <input type="text" id="titreO" ref="titreO" className="form-control" value={this.props.film.titreO} onChange={this.handleFilmParamChange}/>
               </div>
               <Annee label='Année' obj='film'/>
               <Dvd obj='dvd'/>
@@ -113,7 +99,7 @@ class AddFilm extends Component {
               </div>
             </div>
             <div className="col-md-8 offset-md-4">
-              <button type="submit" className="btn btn-primary" name='save'>Sauver</button> <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
+              <button type="submit" className="btn btn-primary" name='save' ref="save">Sauver</button> <button type="button" className="btn btn-primary" onClick={this.init}>Réinitialiser</button>
             </div>
             <div className="col-md-3 offset-md-4">
               <strong>{isUpdated}</strong>

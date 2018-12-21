@@ -16,6 +16,7 @@ class Home extends Component {
   render() {
     const {
       films,
+      filter,
       isFilmListLoaded,
       filmFetchListError,
       hasFetchListFilmError,
@@ -30,6 +31,16 @@ class Home extends Component {
     const isLoaded = isFilmListLoaded && realisateurListLoaded && acteurListLoaded;
 
     const hasError = hasFetchListFilmError && hasFetchListRealisateurError && hasFetchListActeurError;
+    let filmList=[]
+    if(filter.selectedTitre==='' && Object.keys(filter.selectedRealisateur).length === 0 && Object.keys(filter.selectedActeur).length === 0 && filter.ripped==='' && filter.selectedAnnee===''){
+      for(let i=0;i<films.length;i++){
+        filmList.push(films[i])
+      }
+    }else{
+      for(let i=0;i<filter.filteredFilms.length;i++){
+        filmList.push(filter.filteredFilms[i])
+      }
+    }
     if (hasError) {
       if(hasFetchListFilmError){
         return <div className="container-fluid text-center"><h3>Error : {filmFetchListError.message} Film list</h3></div>;
@@ -45,7 +56,7 @@ class Home extends Component {
     }else{
       return(
         <div className="container-fluid text-center">
-          <FilmList films={films} />
+          <FilmList films={filmList} />
         </div>
       )
     }
@@ -56,6 +67,7 @@ class Home extends Component {
 const mapStateToProps = state => {
   return { 
     films: state.filmList.films,
+    filter : state.filmList.filter,
     isFilmListLoaded:state.filmList.isLoaded,
     filmFetchListError:state.filmList.error,
     hasFetchListFilmError:state.filmList.hasError,

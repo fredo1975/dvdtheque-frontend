@@ -7,14 +7,14 @@ export const requestListFilm = () => ({
   type: types.REQUEST_LIST_FILM,
   isLoaded: false,
   hasError:false,
-});
+})
 
 export const receivedListFilm = result => ({
   type: types.RECEIVED_LIST_FILM,
   isLoaded: true,
   films:{result},
   hasError:false,
-});
+})
 
 export const errorOccuredWhenRequestListFilm = (error) => ({
   type: types.ERROR_WHEN_REQUEST_LIST_FILM,
@@ -23,18 +23,30 @@ export const errorOccuredWhenRequestListFilm = (error) => ({
   hasError:true,
 })
 
+export const requestListFilmFiltered = (criteria,param) => ({
+  type: types.FILTER_SELECTED,
+  criteria:criteria,
+  param:param,
+})
+
+export const changeFilterParam = (fieldName, fieldValue) => ({
+  type: types.CHANGE_FILTER_PARAM,
+  fieldName:fieldName,
+  fieldValue:fieldValue,
+})
+
 export const requestListRealisateur = () => ({
   type: types.REQUEST_LIST_REALISATEUR,
   isLoaded: false,
   hasError:false,
-});
+})
 
 export const receivedListRealisateur = result => ({
   type: types.RECEIVED_LIST_REALISATEUR,
   isLoaded: true,
   realisateurs:{result},
   hasError:false,
-});
+})
 
 export const errorOccuredWhenRequestListRealisateur = (error) => ({
   type: types.ERROR_WHEN_REQUEST_LIST_REALISATEUR,
@@ -47,7 +59,7 @@ export const requestListActeur  = () => ({
   type: types.REQUEST_LIST_ACTEUR,
   isLoaded: false,
   hasError:false,
-});
+})
 
 export const receivedListActeur  = (result,acteurMap) => ({
   type: types.RECEIVED_LIST_ACTEUR,
@@ -55,7 +67,7 @@ export const receivedListActeur  = (result,acteurMap) => ({
   acteurs:{result},
   acteurMap:{acteurMap},
   hasError:false,
-});
+})
 
 export const errorOccuredWhenRequestListActeur = (error) => ({
   type: types.ERROR_WHEN_REQUEST_LIST_ACTEUR,
@@ -149,11 +161,11 @@ export const requestAddFilm = () => ({
     checked : true,
   },
   newActeursList : [],
-});
+})
 
 export const addActeur = () => ({
   type: types.REQUEST_ADD_ACTEUR,
-});
+})
 
 export const changeNewActChecked = (fieldName, fieldValue) => ({
   type: types.CHANGE_ACTEUR_CHECKED_PARAM,
@@ -312,6 +324,7 @@ export const changeFilmParam = (fieldName, fieldValue,obj) => ({
   fieldValue:fieldValue,
   obj:obj,
 })
+
 export const handleNewActeursChange = (fieldName, fieldValue) => ({
   type: types.CHANGE_ACTEUR_PARAM,
   fieldName:fieldName,

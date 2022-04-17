@@ -79,13 +79,14 @@ export const errorOccuredWhenRequestListActeur = (error) => ({
 export function fetchFilms() {
   return (dispatch) => {
    dispatch(requestListFilm());
-   return fetch(rest_api_url+'films', {
+   return fetch(rest_api_url+'films/byOrigine/DVD?displayType=TOUS', {
        method: 'GET',
        headers: {
            'Content-Type': 'application/json'
        }
    }).then(result => result.json())
    .then((resultListFilm) => {
+     console.log(resultListFilm);
       dispatch(receivedListFilm(resultListFilm));
    },
    (error)=>{
@@ -314,10 +315,6 @@ export const errorOccuredWhenRequestEditFilm = (error) => ({
   error:error,
   hasError:true,
 })
-export const changeRealisateur = (id) => ({
-  type: types.CHANGE_REALISATEUR,
-  realisateurSelected: id,
-})
 export const changeFilmParam = (fieldName, fieldValue,obj) => ({
   type: types.CHANGE_FILM_PARAM,
   fieldName:fieldName,
@@ -325,15 +322,6 @@ export const changeFilmParam = (fieldName, fieldValue,obj) => ({
   obj:obj,
 })
 
-export const handleNewActeursChange = (fieldName, fieldValue) => ({
-  type: types.CHANGE_ACTEUR_PARAM,
-  fieldName:fieldName,
-  fieldValue:fieldValue,
-})
-export const changeActeur = (selectedValue) => ({
-  type: types.CHANGE_ACTEUR,
-  newActeurList : selectedValue,
-})
 export function fetchFilmById(filmId) {
   return (dispatch) => {
    dispatch(requestEditFilm(filmId));

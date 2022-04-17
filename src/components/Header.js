@@ -8,8 +8,10 @@ export default class Header extends Component {
     this.state = {
       links: [
         {path: "/", text: "Liste des Films", isActive: true},
-        {path: "/AddFilm", text: "AddFilm", isActive: false},
-        {path: "/UpdatePersonne", text: "UpdatePersonne", isActive: false},
+        {path: "/AddFilm", text: "Ajout d'un film", isActive: false},
+        {path: "/Export", text: "Exporter", isActive: false},
+        {path: "/Import", text: "Importer", isActive: false},
+        {path: "/Admin", text: "Admin", isActive: false},
       ]
     }
   }

@@ -20,7 +20,7 @@ export const history = createBrowserHistory()
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-  rootReducer(history,filmList,filmEdit,realisateurList,acteurList,personneEdit),
+  rootReducer(history,filmList),
   composeEnhancer(
     applyMiddleware(
       routerMiddleware(history),thunk,

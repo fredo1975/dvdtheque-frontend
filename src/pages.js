@@ -35,5 +35,5 @@ export const handleNewActeursList = function(newActeursList) {
     return anneeList;
   }
 
-//export const rest_api_url = 'http://192.168.99.100:8083/dvdtheque/';
-export const rest_api_url = 'http://localhost:8083/dvdtheque/';
+//export const rest_api_url = 'http://192.168.1.105:8762/dvdtheque/';
+export const rest_api_url = 'http://localhost:8762/dvdtheque/';

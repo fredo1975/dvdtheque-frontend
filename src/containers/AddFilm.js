@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import Dvd from "./Dvd";
-import Annee from "./Annee";
-import Realisateur from "./Realisateur";
-import Acteurs from "../containers/Acteurs";
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
@@ -12,8 +8,6 @@ import {handleNewActeursList} from '../pages'
 class AddFilm extends Component {
   componentDidMount(){
     this.props.requestAddFilm();
-    this.props.fetchRealisateurs();
-    this.props.fetchActeurs();
   }
   handleFilmParamChange = (event) => {
     if(event.target.id==='ripped'){
@@ -89,11 +83,6 @@ class AddFilm extends Component {
                 <label>Titre Original</label>
                 <input type="text" id="titreO" ref="titreO" className="form-control" value={this.props.film.titreO} onChange={this.handleFilmParamChange}/>
               </div>
-              <Annee label='Année' obj='film'/>
-              <Dvd obj='dvd'/>
-              <Annee label='Année DVD' obj='dvd'/>
-              <Realisateur label='Réalisateur'/>
-              <Acteurs label='Acteurs' isLoaded={isLoaded}/>
               <div className="checkbox">
                 <label><input type="checkbox" id="ripped" checked={this.props.film.ripped} onChange={this.handleFilmParamChange}/> Ripped</label>
               </div>
@@ -137,8 +126,6 @@ const mapDispatchToProps = (dispatch) => {
     requestAddFilm: () => dispatch(requestAddFilm()),
     changeFilmParam : (fieldName, fieldValue) => dispatch(changeFilmParam(fieldName, fieldValue)),
     saveFilm : (film) => dispatch(saveFilm(film)),
-    fetchRealisateurs : () => dispatch(fetchRealisateurs()),
-    fetchActeurs : () => dispatch(fetchActeurs()),
   };
 };
 

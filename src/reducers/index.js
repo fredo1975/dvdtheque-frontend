@@ -6,11 +6,8 @@ import acteurList from './acteurList'
 import realisateurList from './realisateurList'
 
 const rootReducer = (history) => combineReducers({
-  router: connectRouter(history,filmList,filmEdit,realisateurList,acteurList),
+  router: connectRouter(history,filmList),
   filmList,
-  filmEdit,
-  realisateurList,
-  acteurList,
 })
 
 export default rootReducer

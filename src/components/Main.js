@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import Home from "../containers/Home";
-import EditFilm from "../containers/EditFilm";
 import AddFilm from "../containers/AddFilm";
-import UpdatePersonne from "../containers/UpdatePersonne";
+import Export from "../containers/Export";
+import Import from "../containers/Import";
+import Admin from "../containers/Admin";
 
 export default class Main extends Component {
   render() {
@@ -12,9 +13,9 @@ export default class Main extends Component {
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/AddFilm' component={AddFilm}/>
-            <Route path='/UpdatePersonne/:realId' component={UpdatePersonne}/>
-            <Route path='/UpdatePersonne' component={UpdatePersonne}/>
-            <Route path="/EditFilm/:filmId" component={EditFilm} />
+            <Route path='/Export' component={Export}/>
+            <Route path='/Import' component={Import}/>
+            <Route path="/Admin" component={Admin} />
           </Switch>
         </main>
       )
